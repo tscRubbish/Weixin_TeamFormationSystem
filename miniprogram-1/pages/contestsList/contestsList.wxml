@@ -1,0 +1,9 @@
+<!--pages/ContestsList/contestsList.wxml-->
+<text>pages/ContestsList/contestsList.wxml</text>
+<text>hello</text>
+<van-tabbar active="{{ tabber }}" bind:change="onTabberChange">
+  <van-tabbar-item name="index" icon="home-o">主页</van-tabbar-item>
+  <van-tabbar-item name="contestsList" icon="search">比赛</van-tabbar-item>
+  <van-tabbar-item name="team_index" icon="friends-o">组队</van-tabbar-item>
+  <van-tabbar-item name="mine" icon="setting-o">我的</van-tabbar-item>
+</van-tabbar>

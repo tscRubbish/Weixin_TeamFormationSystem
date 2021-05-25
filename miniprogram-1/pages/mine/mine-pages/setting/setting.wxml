@@ -1,0 +1,34 @@
+<van-nav-bar
+  title="设置"
+  left-text="返回"
+  left-arrow
+  fixed="true"
+  bind:click-left="onClickLeft"
+  safe-area-inset-top="false"
+  placeholder="true"
+/>
+
+<van-toast id="van-toast" />
+
+<van-cell-group>
+  <van-cell title="主题" value="{{theme}}" is-link bind:click="onThemeOpen" />
+  <van-popup show="{{ showTheme }}" position="bottom" bind:close="onThemeClose">
+    <van-picker columns="{{ columnsOfTheme }}" bind:change="onThemeChange" />
+  </van-popup>
+  <van-cell title="字体大小" value="{{fond}}" is-link bind:click="onFondOpen" />
+  <van-popup show="{{ showFond }}" position="bottom" bind:close="onFondClose">
+    <van-picker columns="{{ columnsOfFond }}" bind:change="onFondChange" default-index="2" />
+  </van-popup>
+  <van-cell title="关注数是否可见" >
+    <van-switch slot="right-icon" size="50rpx" checked="{{ isLike }}" bind:change="onLikeChange" />
+  </van-cell>
+  <van-cell title="点赞数是否可见" >
+    <van-switch slot="right-icon" size="50rpx" checked="{{ isGood }}" bind:change="onGoodChange" />
+  </van-cell>
+  <van-cell title="积分数是否可见" >
+    <van-switch slot="right-icon" size="50rpx" checked="{{ isMedal }}" bind:change="onMedalChange" />
+  </van-cell>
+  <van-cell title="勿扰模式" >
+    <van-switch slot="right-icon" size="50rpx" checked="{{ isBusy }}" bind:change="onBusyChange" />
+  </van-cell>
+</van-cell-group>

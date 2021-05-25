@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.weixin.data.UserMapper">
+
+    <insert id="createUser" parameterType="com.example.weixin.po.User"
+            useGeneratedKeys="true" keyProperty="id" >
+        <!--userGeneratedKeys和KeyProperty属性自动将增加的id封装进User-->
+        insert into weixin.User(email,password,username,userType)
+        values(#{email},#{password},#{username},#{userType})
+    </insert>
+    <select id="getUserById" resultMap="User">
+        select * from weixin.user
+        where id=#{id}
+    </select>
+    <select id="getUserByWords" resultMap="User">
+        select * from weixin.user
+        where (description like (concat(concat('%',#{word}),'%'))) or (tags like (concat(concat('%',#{word}),'%')))
+    </select>
+    <select id="getUserByName" resultMap="User">
+        select * from weixin.user
+        where username=#{name}
+    </select>
+    <select id="getUserByEmail" resultMap="User">
+        select * from weixin.user
+        where email=#{email}
+    </select>
+
+    <update id="updateUser" parameterType="com.example.weixin.po.User">
+        update weixin.user
+        <set>
+            <if test="password!=null">
+                password=#{password},
+            </if>
+            description=#{description},
+            tags=#{tags},
+            pic=#{pic}
+        </set>
+        where id=#{id}
+    </update>
+    <update id="updateScore" parameterType="com.example.weixin.po.User">
+        update weixin.user
+        <set>
+            score=(CAST(score_nums as Decimal(18,2))*score+#{score})/CAST(score_nums+1 as Decimal(18,2)),
+            score_nums=score_nums+1,
+        </set>
+        where id=#{user.id}
+    </update>
+    <update id="updateLikes" parameterType="com.example.weixin.po.User">
+        update weixin.user
+        <set>
+            likes=#{likes}
+        </set>
+        where id=#{user.id}
+    </update>
+    <delete id="deleteUser" parameterType="com.example.weixin.po.User">
+        delete from weixin.user
+        where id=#{user.id}
+    </delete>
+    <resultMap id="User" type="com.example.weixin.po.User">
+        <id column="id" property="id"></id>
+        <result column="email" property="email"></result>
+        <result column="password" property="password"></result>
+        <result column="username" property="username"></result>
+        <result column="pic" property="pic"></result>
+        <result column="likes" property="likes"></result>
+        <result column="userType" property="userType"></result>
+        <result column="score" property="score"></result>
+        <result column="score_nums" property="score_nums"></result>
+        <result column="tags" property="tags"></result>
+        <result column="description" property="description"></result>
+    </resultMap>
+</mapper>

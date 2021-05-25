@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.weixin.data.TeamMapper">
+  <insert id="createTeam" parameterType="com.example.weixin.po.Team"
+  useGeneratedKeys="true" keyProperty="id">
+    insert into weixin.team(pic,name,password,captainId,contestId)
+    values(#{pic},#{name},#{password},#{captainId},#{contestId});
+  </insert>
+  <insert id="addMember" parameterType="com.example.weixin.po.Team">
+    insert into weixin.members(userId, teamId)
+    values (#{memberId},#{team.id})
+  </insert>
+  <select id="getTeamById" resultMap="Team">
+    select * from weixin.team
+    where id=#{id};
+  </select>
+  <select id="getTeamByword" resultMap="Team">
+    select * from weixin.team
+    where (description like (concat(concat('%',#{word}),'%'))) or (name like (concat(concat('%',#{word}),'%')))
+  </select>
+  <select id="getMembers" parameterType="com.example.weixin.po.Team" resultType="java.lang.Integer">
+    select userId from weixin.members
+    where teamId=#{id};
+  </select>
+    <select id="getTeamByCapAndContest" resultMap="Team">
+      select * from weixin.team
+        where captainId=#{captainId} and contestId=#{contestId};
+    </select>
+    <select id="selectTeamOfMemberAndContest" resultMap="Team">
+        select * from weixin.team
+        where contestId=#{contest} and id in (
+          select teamId as id from weixin.members
+            where userId=#{member}
+          )
+    </select>
+
+    <update id="updateTeam" parameterType="com.example.weixin.po.Team">
+    update weixin.team
+    <set>
+      <if test="name!=null">
+        name=#{name},
+      </if>
+        description=#{description},
+        captainNotice=#{captainNotice},
+      <if test="password!=null">
+        password=#{password},
+      </if>
+        pic=#{pic}
+    </set>
+    where id=#{id};
+  </update>
+  <delete id="deleteTeam" parameterType="com.example.weixin.po.Team">
+        delete from weixin.team
+        where id=#{id};
+  </delete>
+  <delete id="deleteMember" parameterType="com.example.weixin.po.Team">
+        delete from weixin.members
+        where userId=#{memberId} and teamId=#{team.id};
+  </delete>
+
+  <resultMap id="Team" type="com.example.weixin.po.Team">
+    <id column="id" property="id"></id>
+    <result column="name" property="name"></result>
+    <result column="pic" property="pic"></result>
+    <result column="password" property="password"></result>
+    <result column="description" property="description"></result>
+    <result column="captainId" property="captainId"></result>
+    <result column="captainNotice" property="captainNotice"></result>
+    <result column="contestId" property="contestId"></result>
+  </resultMap>
+</mapper>

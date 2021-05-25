@@ -1,0 +1,29 @@
+<!--pages/index/index.wxml-->
+<view class="indexContainer">
+  <!--轮播图区域-->
+  <swiper class="banners" indicator-dots indicator-color="ivory" indicator-active-color="#666699" autoplay easing-function="linear" circular>
+    <swiper-item wx:for="{{bannerList}}" wx:key="Id" >
+      <image src="{{item.pic}}" class="image"></image>
+    </swiper-item>
+  </swiper>
+</view>
+<view class="contests">
+  <view class="header">
+    <text class="title">比赛推荐</text>
+    <van-button round type="info" class="more" hairline="true" size="small" color="linear-gradient(#33CCFF,#FFCC22)" bind:click="toContestsList" >
+      查看更多
+    </van-button>
+  </view>
+  <view class="contestsList">
+    <l-list wx:for="{{contestList}}" title="{{item.text}}" image="/static/images/箭头右.png" url="/pages/contest/contest">
+    <view slot="right-section">{{item.time}}</view>  
+    </l-list>
+  </view>
+</view>
+
+<van-tabbar active="{{ tabber }}" bind:change="onTabberChange">
+  <van-tabbar-item name="index" icon="home-o">主页</van-tabbar-item>
+  <van-tabbar-item name="contestsList" icon="search">比赛</van-tabbar-item>
+  <van-tabbar-item name="team_index" icon="friends-o">组队</van-tabbar-item>
+  <van-tabbar-item name="mine" icon="setting-o">我的</van-tabbar-item>
+</van-tabbar>

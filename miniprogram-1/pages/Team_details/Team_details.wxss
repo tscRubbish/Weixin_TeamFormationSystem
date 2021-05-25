@@ -1,0 +1,38 @@
+.head{
+  height: 400rpx;
+  border-bottom-color: rgb(248, 249, 250);
+
+  border-bottom-width: medium;
+  border-bottom-style: solid;
+  position: relative;
+}
+.Timg{
+  height: 250rpx;
+  width: 250rpx;
+  position: absolute;
+  top:75rpx;
+  left: 25rpx;
+  
+}
+.Timg image{
+  height: 100%;
+  width: 100%;
+}
+.Tdetail{
+  position: absolute;
+  width: 400rpx;
+  right: 25rpx;
+  top:75rpx;
+}
+.Tdetail view{
+  margin-bottom: 50rpx;
+}
+
+#match_name{
+  color:rgb(162, 158, 160);
+}
+
+
+.body{
+  margin-top: 30rpx;
+}

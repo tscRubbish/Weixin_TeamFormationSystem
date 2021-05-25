@@ -1,0 +1,20 @@
+/* pages/userList/userList.wxss */
+.tagsCheck{
+  padding: 20rpx;
+  background-color: white;
+  border:5rpx solid;
+  border-color: #1989fa;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /*justify-content: space-between;*/
+}
+.title {
+  font-size: 35rpx;
+  line-height: 80rpx;
+  color: #666;
+}
+.search{
+  float:right;
+  display:fixed;
+}

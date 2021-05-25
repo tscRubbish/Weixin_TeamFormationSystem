@@ -1,0 +1,39 @@
+<van-nav-bar
+  title="编辑个人信息"
+  left-text="返回"
+  left-arrow
+  fixed="true"
+  bind:click-left="onClickLeft"
+  safe-area-inset-top="false"
+  placeholder="true"
+/>
+
+<van-cell-group>
+  <van-cell title="头像" is-link bind:click="showImage" />
+  <van-cell title="用户名" is-link bind:click="showName" />
+  <van-field
+    label="介绍"
+    value="{{ intro }}"
+    bind:change="onIntroChange"
+  />
+  
+</van-cell-group>
+
+<van-popup show="{{ showImage }}" bind:close="onImageClose">
+  <image src="https://img.yzcdn.cn/vant/cat.jpeg"/>
+  <van-button round type="primary" block="true">修改头像</van-button>
+</van-popup>
+
+<van-popup show="{{ showName }}" bind:close="onNameClose">
+  <van-cell-group>
+  <van-field
+    value="{{ name }}"
+    label="用户名："
+    bind:change="onNameChange"
+    size="large"
+  />
+</van-cell-group>
+</van-popup>
+
+
+

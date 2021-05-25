@@ -1,0 +1,47 @@
+<van-nav-bar
+  title="反馈与帮助"
+  left-text="返回"
+  left-arrow
+  fixed="true"
+  bind:click-left="onClickLeft"
+  safe-area-inset-top="false"
+  placeholder="true"
+/>
+
+<van-toast id="van-toast" />
+
+<van-cell-group>
+  <van-cell title="常见问题" value="{{problem}}" is-link bind:click="onProblemOpen" />
+  <van-popup show="{{ showProblem }}" position="bottom" bind:close="onProblemClose">
+    <van-collapse value="{{ activeNames }}" bind:change="onProblemChange">
+      <van-collapse-item title="1.如何获得积分" name="1">
+        目前系统还未开发完毕，无法获得积分
+      </van-collapse-item>
+      <van-collapse-item title="2.勿扰模式有什么用" name="2">
+        勿扰模式下收到信息，不会有提示
+      </van-collapse-item>
+      <van-collapse-item title="3.还有其他问题怎么办" name="3">
+        可以反馈给我们呦
+      </van-collapse-item>
+    </van-collapse>
+  </van-popup>
+  
+
+    <van-field
+      model:value="{{ feedback }}"
+      type="textarea"
+      autosize="true"
+      clearable
+      label="反馈"
+      placeholder="有在认真听哦"
+      use-button-slot
+    >
+      <van-button slot="button" size="small" type="primary" bind:click="onUpload">
+        提交
+      </van-button>
+    </van-field>
+  <van-cell title="评价">
+    <van-rate value="{{ rate }}" bind:change="onRateChange" /> {{rate}}
+  </van-cell>
+  
+</van-cell-group>

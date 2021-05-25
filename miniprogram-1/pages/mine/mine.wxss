@@ -1,0 +1,14 @@
+/* pages/mine/mine.wxss */
+#image {
+  margin: 20rpx;
+}
+
+.name {
+  margin: 20rpx;
+  display: inline-block;
+  vertical-align: middle
+}
+
+.id {
+  margin: 20rpx;
+}

@@ -1,0 +1,78 @@
+package com.example.weixin.controller.contest;
+
+import com.example.weixin.bl.ContestService;
+import com.example.weixin.po.Contest;
+import com.example.weixin.vo.ContestForm;
+import com.example.weixin.vo.ContestVo;
+import com.example.weixin.vo.ResponseVO;
+import com.example.weixin.vo.UserVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@RestController()
+@RequestMapping("/api/contest")
+@Api(tags = "ContestController比赛接口")
+@Slf4j
+public class ContestController {
+    @Autowired
+    ContestService contestService;
+
+    @ApiOperation("按指定顺序获得比赛列表")
+    @GetMapping("/getList")
+    public ResponseVO getList(String word, Integer page){
+        if (page<=0) return null;
+        return contestService.search(word,page);
+        //todo:暂未实现指定排序方法
+    }
+
+    @ApiOperation("获取比赛信息")
+    @GetMapping("/getInfo")
+    public ResponseVO getInfo(Integer id){
+        if (id<=0) return ResponseVO.buildFailure("无效id");
+        return contestService.getInfo(id);
+    }
+
+    @ApiOperation("修改比赛信息")
+    @PostMapping("/updateInfo")
+    public ResponseVO updateInfo(@RequestBody ContestVo contestVo){
+        if (contestVo==null) return ResponseVO.buildFailure("空比赛信息");
+        return contestService.updateInfo(contestVo);
+    }
+
+    @ApiOperation("创建比赛")
+    @PostMapping("/create")
+    public ResponseVO create(@RequestBody ContestForm contestForm){
+         return contestService.create(contestForm);
+    }
+
+    @ApiOperation("删除过时比赛")
+    @PostMapping("/deleteOutDate")
+    public ResponseVO deleteOutDate(@RequestBody UserVo userVo){
+        return contestService.deleteByTime(userVo, LocalDate.now());
+    }
+
+    @ApiOperation("删除指定比赛")
+    @PostMapping("/delete")
+    public ResponseVO delete(@RequestBody ContestVo contestVo){
+        return contestService.delete(contestVo);
+    }
+
+    @ApiOperation("删除指定图片")
+    @PostMapping("/deletePics")
+    public ResponseVO deletePics(@RequestBody ContestVo contestVo,String pic){
+        return contestService.deletePics(contestVo.getId(),pic);
+    }
+
+    @ApiOperation("加入指定图片")
+    @PostMapping("/insertPics")
+    public ResponseVO insertPics(@RequestBody ContestVo contestVo,String pic){
+        return contestService.insertPics(contestVo.getId(),pic);
+    }
+
+}

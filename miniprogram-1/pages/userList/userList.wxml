@@ -1,0 +1,18 @@
+<!--pages/userList/userList.wxml-->
+<form>
+<van-search placeholder="请输入搜索关键词" />
+<text class="title">标签</text>
+<van-button round type="info" class="search" size="small">搜索</van-button>
+<van-checkbox-group class="tagsCheck"> 
+  <van-checkbox wx:for="{{tagsList}}" value="{{tagsCheck[index]}}" bindtap="tagsCheckChange" data-index="{{index}}" icon-size="15px" font-size="5rpx">
+    {{item}}
+  </van-checkbox>
+</van-checkbox-group>
+</form>
+<van-divider hairline borderColor="#1989fa"/>
+<view class="result">
+  <text wx:if="{{!hasResult}}">暂无搜索结果</text>
+  <view wx:else>
+    
+  </view>
+</view>

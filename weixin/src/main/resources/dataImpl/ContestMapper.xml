@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.weixin.data.ContestMapper">
+    <insert id="createContest" parameterType="com.example.weixin.po.Contest" useGeneratedKeys="true" keyProperty="id" >
+        insert into weixin.contest(name,sponsorId,startTime,endTime,description,tags)
+        values(#{name},#{sponsorId},#{startTime},#{endTime},#{description},#{tags});
+    </insert>
+    <insert id="insertContestPics">
+        insert into weixin.contestpics(contestId, pic)
+        VALUES (#{id},#{pic});
+    </insert>
+    <delete id="deleteContest" parameterType="com.example.weixin.po.Contest">
+        delete from weixin.contestpics
+        where contestId=#{id};
+        delete from weixin.contest
+        where id=#{id};
+    </delete>
+    <delete id="deleteContestByTime">
+        delete from weixin.contestpics
+        where contestId in (select id from weixin.contest where #{time} > endTime and
+                                                                #{user.id}=sponsorId);
+        delete from weixin.contest
+        where #{time} > endTime and #{user.id}=sponsorId;
+    </delete>
+    <delete id="deleteContestPics">
+        delete from weixin.contestpics
+        where contestId=#{id} and pic=#{pic};
+    </delete>
+    <update id="updateContest" parameterType="com.example.weixin.po.Contest">
+        update weixin.contest
+        <set>
+            <if test="name!=null">
+                name=#{name},
+            </if>
+            description=#{description},
+            tags=#{tags},
+        </set>
+        where id=#{id};
+    </update>
+
+    <select id="getContestById" resultMap="Contest">
+        select * from weixin.contest
+        where id=#{id};
+    </select>
+    <select id="getContestByWord" resultMap="Contest">
+        select * from weixin.contest
+        where (description like (concat(concat('%',#{word}),'%'))) or (tags like (concat(concat('%',#{word}),'%')))
+    </select>
+    <select id="getPics" resultType="java.lang.String" parameterType="com.example.weixin.po.Contest">
+        select pic from weixin.contestpics
+        where contestId=#{id};
+    </select>
+
+    <resultMap id="Contest" type="com.example.weixin.po.Contest">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="startTime" property="startTime"></result>
+        <result column="endTime" property="endTime"></result>
+        <result column="tags" property="tags"></result>
+        <result column="description" property="description"></result>
+    </resultMap>
+</mapper>

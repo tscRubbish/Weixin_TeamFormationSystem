@@ -1,0 +1,20 @@
+<view class="head">
+  <view class="Timg">
+    <image src="{{Timg_path}}"></image>
+  </view>
+  <view class="Tdetail">
+    <view id="Tname">{{Tname}}</view>
+    <view id="match_name">{{match_name}}</view>
+    <view id="TID">TID: {{TID}}</view>
+  </view>
+</view>
+
+<view class="body">
+  <van-grid column-num="2" square gutter="{{ 10 }}" clickable="true">
+    <van-grid-item icon="friends-o" text="队伍成员" bind:click="click_member" data-memberName_array="{{memberName_array}}" data-memberID_array="{{memberID_array}}"/>
+    <van-grid-item icon="more-o" text="队长公告" bind:click="click_notice" data-notice="{{notice}}"/>
+    <van-grid-item icon="clock-o" text="比赛节点" bind:click="click_node"/>
+    <!-- 比赛文件 这一栏先放着 --><!--暂时改为接触组队-->
+    <van-grid-item icon="cross" text="解除组队" />
+</van-grid>
+</view>
