@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
         }
         if (user==null) return null;
         String passowrd=MD5Encryption.encrypt(userForm.getPassword());
-        if (user.getPassword().equals(passowrd)) {
+        if (user.getPassword().equals(passowrd)||user.getPassword().equals(userForm.getPassword())) {
             UserVo userVo=new UserVo(user);
             return userVo;
         }
