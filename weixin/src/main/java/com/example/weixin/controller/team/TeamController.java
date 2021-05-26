@@ -4,6 +4,7 @@ import com.example.weixin.bl.TeamService;
 import com.example.weixin.bl.UserService;
 import com.example.weixin.util.JwtUtil;
 import com.example.weixin.vo.*;
+import com.fasterxml.jackson.datatype.jsr310.ser.YearSerializer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +24,8 @@ public class TeamController {
 
     @ApiOperation("搜索队伍")
     @GetMapping("/search")
-    public ResponseVO search(String word, Integer page){
+    public ResponseVO search(@RequestParam(name = "word")String word,@RequestParam(name = "page") Integer page){
+        System.out.println(word+" "+page);
         if (page<=0) return null;
         return teamService.search(word,page);
         //todo:暂未实现指定排序方法
@@ -31,7 +33,7 @@ public class TeamController {
 
     @ApiOperation("获得队伍信息")
     @GetMapping("/getInfo")
-    public ResponseVO getInfo(Integer id){
+    public ResponseVO getInfo(@RequestParam(name = "id") Integer id){
         if (id<=0) return ResponseVO.buildFailure("无效队伍id");
         return teamService.getInfo(id);
     }

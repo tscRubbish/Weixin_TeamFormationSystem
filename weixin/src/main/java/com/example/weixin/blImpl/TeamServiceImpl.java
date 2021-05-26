@@ -1,7 +1,10 @@
 package com.example.weixin.blImpl;
 
+import com.alibaba.fastjson.JSON;
 import com.example.weixin.bl.TeamService;
+import com.example.weixin.data.ContestMapper;
 import com.example.weixin.data.TeamMapper;
+import com.example.weixin.data.UserMapper;
 import com.example.weixin.po.Contest;
 import com.example.weixin.po.Team;
 import com.example.weixin.vo.*;
@@ -18,6 +21,10 @@ public class TeamServiceImpl implements TeamService {
 
     @Autowired
     TeamMapper teamMapper;
+    @Autowired
+    ContestMapper contestMapper;
+    @Autowired
+    UserMapper userMapper;
 
     public ResponseVO createTeam(TeamForm teamForm) {
         Team team=teamMapper.getTeamByCapAndContest(teamForm.getCaptainId(),teamForm.getContestId());
@@ -25,13 +32,13 @@ public class TeamServiceImpl implements TeamService {
 
         team=new Team(teamForm);
         teamMapper.createTeam(team);
-        return ResponseVO.buildSuccess(new TeamVo(team));
+        return ResponseVO.buildSuccess(new TeamVo(team,contestMapper,teamMapper,userMapper));
     }
 
     public ResponseVO getInfo(Integer id){
         Team team=teamMapper.getTeamById(id);
         if (team==null) return ResponseVO.buildFailure("查无队伍");
-        TeamVo teamVo=new TeamVo(team);
+        TeamVo teamVo=new TeamVo(team,contestMapper,teamMapper,userMapper);
         return ResponseVO.buildSuccess(teamVo);
     }
 
@@ -41,7 +48,8 @@ public class TeamServiceImpl implements TeamService {
         List<TeamVo> anslist=new ArrayList<TeamVo>();
         for (int i=(page-1)*20;i<page*20;i++){
             if (list.size()<=i) break;
-            anslist.add(new TeamVo(list.get(i)));
+            if (list.get(i)==null) break;
+            anslist.add(new TeamVo(list.get(i),contestMapper,teamMapper,userMapper));
         }
         return ResponseVO.buildSuccess(anslist);
     }

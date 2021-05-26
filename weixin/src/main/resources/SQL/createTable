@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `Team`;
 
 CREATE TABLE `Team` (
                         `id` int(11) NOT NULL AUTO_INCREMENT,
-                        `pic` varchar(100) DEFAULT '',
+                        `pic` varchar(255) DEFAULT '',
                         `name` varchar(25) NOT NULL,
                         `password` varchar(64) NOT NULL,
                         `description` varchar(255) DEFAULT '',

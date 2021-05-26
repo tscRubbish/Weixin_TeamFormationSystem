@@ -29,13 +29,6 @@ public class ContestVo {
     private String[] tags;
     private List<String> pics;
 
-    @Autowired
-    @JsonIgnore
-    private UserMapper userMapper;
-    @Autowired
-    @JsonIgnore
-    private ContestMapper contestMapper;
-
     public ContestVo(){
 
     }
@@ -45,7 +38,7 @@ public class ContestVo {
         startTime=contestForm.getStartTime();
         endTime=contestForm.getEndTime();
     }
-    public ContestVo(@NonNull Contest contest){
+    public ContestVo(@NonNull Contest contest,UserMapper userMapper,ContestMapper contestMapper){
         id=contest.getId();
         name=contest.getName();
         sponsor=new UserVo(userMapper.getUserById(contest.getSponsorId()));

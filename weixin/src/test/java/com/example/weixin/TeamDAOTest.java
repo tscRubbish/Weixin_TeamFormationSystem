@@ -1,6 +1,7 @@
 package com.example.weixin;
 
 import com.alibaba.fastjson.JSON;
+import com.example.weixin.bl.TeamService;
 import com.example.weixin.data.ContestMapper;
 import com.example.weixin.data.TeamMapper;
 import com.example.weixin.po.Contest;
@@ -17,7 +18,8 @@ public class TeamDAOTest {
 
     @Autowired
     TeamMapper teamMapper;
-
+    @Autowired
+    TeamService teamService;
     @Test
     public void createTest01(){
         Team team=new Team();
@@ -36,6 +38,12 @@ public class TeamDAOTest {
     @Test
     public void getByWordTest01(){
         Team team=teamMapper.getTeamByword("回收").get(0);
+        System.out.println(JSON.toJSON(team));
+    }
+    @Test
+    public void getByWordTest02(){
+        System.out.println(JSON.toJSON(teamService.search("EL",1)));
+        Team team=teamMapper.getTeamByword("EL").get(0);
         System.out.println(JSON.toJSON(team));
     }
     @Test

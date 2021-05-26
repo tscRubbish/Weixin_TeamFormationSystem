@@ -2,6 +2,7 @@ package com.example.weixin.blImpl;
 
 import com.example.weixin.bl.ContestService;
 import com.example.weixin.data.ContestMapper;
+import com.example.weixin.data.UserMapper;
 import com.example.weixin.po.Contest;
 import com.example.weixin.po.User;
 import com.example.weixin.vo.ContestForm;
@@ -22,18 +23,20 @@ public class ContestServiceImpl implements ContestService {
 
     @Autowired
     ContestMapper contestMapper;
+    @Autowired
+    UserMapper userMapper;
 
     public ResponseVO create(ContestForm contestForm){
         Contest contest=new Contest(contestForm);
         contestMapper.createContest(contest);
-        ContestVo contestVo=new ContestVo(contest);
+        ContestVo contestVo=new ContestVo(contest,userMapper,contestMapper);
         return ResponseVO.buildSuccess(contestVo);
     }
 
     public ResponseVO getInfo(Integer id){
         Contest contest=contestMapper.getContestById(id);
         if (contest==null) return ResponseVO.buildFailure("查无用户");
-        ContestVo contestVo=new ContestVo(contest);
+        ContestVo contestVo=new ContestVo(contest,userMapper,contestMapper);
         return ResponseVO.buildSuccess(contestVo);
     }
 
@@ -43,7 +46,7 @@ public class ContestServiceImpl implements ContestService {
         List<ContestVo> anslist=new ArrayList<ContestVo>();
         for (int i=(page-1)*20;i<page*20;i++){
             if (list.size()<=i) break;
-            anslist.add(new ContestVo(list.get(i)));
+            anslist.add(new ContestVo(list.get(i),userMapper,contestMapper));
         }
         return ResponseVO.buildSuccess(anslist);
     }
@@ -80,7 +83,7 @@ public class ContestServiceImpl implements ContestService {
         }catch (Exception e){
             return ResponseVO.buildFailure(e.getMessage());
         }
-        ContestVo contestVo=new ContestVo(contestMapper.getContestById(id));
+        ContestVo contestVo=new ContestVo(contestMapper.getContestById(id),userMapper,contestMapper);
         return ResponseVO.buildSuccess(contestVo);
     }
 }

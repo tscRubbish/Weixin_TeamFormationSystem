@@ -15,7 +15,7 @@ CREATE TABLE `ContestPics` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 Alter Table  `ContestPics`
-modify `pic` varchar(255) NOT NULL
+modify `pic` varchar(255) NOT NULL;
 Alter Table  `recommend`
     modify `pic` varchar(255) NOT NULL
 

@@ -52,14 +52,14 @@ public class UserController {
 
     @ApiOperation("搜索用户")
     @GetMapping("/search")
-    public ResponseVO search(String word, int page){
+    public ResponseVO search(@RequestParam(name = "word") String word,@RequestParam(name = "page") int page){
         if (page<=0) return null;
         return userService.search(word,page);
     }
 
     @ApiOperation("获取用户信息")
     @GetMapping("/getInfo")
-    public ResponseVO getInfo(int id){
+    public ResponseVO getInfo(@RequestParam(name = "id") int id){
         if (id<=0) ResponseVO.buildFailure("无效id");
         return userService.getUserInfo(id);
     }
@@ -78,7 +78,7 @@ public class UserController {
     @ApiOperation("评价用户")
     @PostMapping("/updateScores")
     //todo:此处未实现评分记录，所以可以无限评分
-    public ResponseVO updateScores(@RequestBody UserVo userVo,int score,HttpServletRequest request){
+    public ResponseVO updateScores(@RequestBody UserVo userVo,@RequestParam(name = "score") int score,HttpServletRequest request){
         if (score<0||score>5) return ResponseVO.buildFailure("非法评分分数");
         if (userVo==null) return ResponseVO.buildFailure("更新传入空用户");
         String token = request.getHeader(JwtUtil.TOKEN_NAME);

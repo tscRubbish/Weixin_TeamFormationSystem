@@ -28,7 +28,7 @@ public class ContestController {
 
     @ApiOperation("按指定顺序获得比赛列表")
     @GetMapping("/getList")
-    public ResponseVO getList(String word, Integer page){
+    public ResponseVO getList(@RequestParam(name = "word")String word,@RequestParam(name = "page") Integer page){
         if (page<=0) return null;
         return contestService.search(word,page);
         //todo:暂未实现指定排序方法
@@ -36,7 +36,7 @@ public class ContestController {
 
     @ApiOperation("获取比赛信息")
     @GetMapping("/getInfo")
-    public ResponseVO getInfo(Integer id){
+    public ResponseVO getInfo(@RequestParam(name = "id") Integer id){
         if (id<=0) return ResponseVO.buildFailure("无效id");
         return contestService.getInfo(id);
     }
@@ -90,7 +90,7 @@ public class ContestController {
 
     @ApiOperation("删除指定图片")
     @PostMapping("/deletePics")
-    public ResponseVO deletePics(@RequestBody ContestVo contestVo,String pic,HttpServletRequest request){
+    public ResponseVO deletePics(@RequestBody ContestVo contestVo,@RequestParam(name = "pic") String pic,HttpServletRequest request){
         String token = request.getHeader(JwtUtil.TOKEN_NAME);
         Integer userId=JwtUtil.verifyTokenAndGetUserId(token);
         Integer userType = JwtUtil.verifyTokenAndGetUserType(token);
@@ -102,7 +102,7 @@ public class ContestController {
 
     @ApiOperation("加入指定图片")
     @PostMapping("/insertPics")
-    public ResponseVO insertPics(@RequestBody ContestVo contestVo,String pic,HttpServletRequest request){
+    public ResponseVO insertPics(@RequestBody ContestVo contestVo,@RequestParam(name = "pic") String pic,HttpServletRequest request){
         String token = request.getHeader(JwtUtil.TOKEN_NAME);
         Integer userId=JwtUtil.verifyTokenAndGetUserId(token);
         Integer userType = JwtUtil.verifyTokenAndGetUserType(token);

@@ -17,6 +17,8 @@
   <select id="getTeamByword" resultMap="Team">
     select * from weixin.team
     where (description like (concat(concat('%',#{word}),'%'))) or (name like (concat(concat('%',#{word}),'%')))
+        or (select name from weixin.contest where weixin.contest.id=weixin.team.contestId)
+               like (concat(concat('%',#{word}),'%'));
   </select>
   <select id="getMembers" parameterType="com.example.weixin.po.Team" resultType="java.lang.Integer">
     select userId from weixin.members
