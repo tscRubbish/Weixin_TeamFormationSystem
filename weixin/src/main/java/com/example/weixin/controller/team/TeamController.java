@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController()
@@ -63,12 +64,14 @@ public class TeamController {
 
     @ApiOperation("加入队伍")
     @PostMapping("/takepart")
-    public ResponseVO takepart(@RequestBody UserVo userVo,@RequestBody TeamVo teamVo,HttpServletRequest request){
+    public ResponseVO takepart(@RequestBody MemberVo memberVo, HttpServletRequest request){
+        UserVo userVo=memberVo.getUserVo();
+        TeamVo teamVo=memberVo.getTeamVo();
         if (userVo==null) return ResponseVO.buildFailure("空用户加入队伍");
         if (teamVo==null) return ResponseVO.buildFailure("用户加入空队伍");
         String token = request.getHeader(JwtUtil.TOKEN_NAME);
         Integer userId = JwtUtil.verifyTokenAndGetUserId(token);
-        if (userId==null){
+        if (userId==null&&userId==userVo.getId()){
             return ResponseVO.buildFailure("请先登录再尝试加入队伍");
         }
         return teamService.takePart(userVo,teamVo);
@@ -77,7 +80,7 @@ public class TeamController {
     @ApiOperation("获得个人队伍列表")
     @PostMapping("/getTeamList")
     public ResponseVO getTeamList(@RequestBody TeamVo teamVo){
-       return teamService.getTeamList(teamVo);
+        return teamService.getTeamList(teamVo);
     }
 
 }

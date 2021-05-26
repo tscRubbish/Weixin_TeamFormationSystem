@@ -7,6 +7,7 @@ import com.example.weixin.data.TeamMapper;
 import com.example.weixin.data.UserMapper;
 import com.example.weixin.po.Contest;
 import com.example.weixin.po.Team;
+import com.example.weixin.po.User;
 import com.example.weixin.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,8 @@ public class TeamServiceImpl implements TeamService {
     //一个人不能在一个比赛中加入多个队伍
     public ResponseVO takePart(UserVo userVo, TeamVo teamVo){
         Team team=new Team(teamVo);
+        User user=userMapper.getUserById(userVo.getId());
+        if (user==null) return ResponseVO.buildFailure("错误用户信息");
         try{
             if (teamMapper.selectTeamOfMemberAndContest(userVo.getId(),team.getContestId())!=null)
                 return ResponseVO.buildFailure("该用户已参与该比赛的队伍");
@@ -76,7 +79,13 @@ public class TeamServiceImpl implements TeamService {
         }catch (Exception e){
             return ResponseVO.buildFailure(e.getMessage());
         }
-        teamVo.getMembers().add(userVo);
+        if (teamVo.getMembers()!=null)
+            teamVo.getMembers().add(new UserVo(user));
+        else {
+            ArrayList<UserVo> list=new ArrayList<UserVo>();
+            list.add(new UserVo(user));
+            teamVo.setMembers(list);
+        }
         return ResponseVO.buildSuccess(teamVo);
     }
     public ResponseVO getTeamList(TeamVo teamVo){

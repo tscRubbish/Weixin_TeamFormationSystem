@@ -40,6 +40,7 @@ public class Team {
         description=teamVo.getDescription();
         captainId=teamVo.getCaptain().getId();
         membersId=new ArrayList<Integer>();
+        if (teamVo.getMembers()!=null)
         for (UserVo userVo:teamVo.getMembers()){
             membersId.add(userVo.getId());
         }
