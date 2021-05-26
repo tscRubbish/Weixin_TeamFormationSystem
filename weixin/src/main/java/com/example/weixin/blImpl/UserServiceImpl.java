@@ -3,6 +3,7 @@ package com.example.weixin.blImpl;
 import com.example.weixin.bl.UserService;
 import com.example.weixin.data.UserMapper;
 import com.example.weixin.po.User;
+import com.example.weixin.util.MD5Encryption;
 import com.example.weixin.vo.ResponseVO;
 import com.example.weixin.vo.UserForm;
 import com.example.weixin.vo.UserVo;
@@ -21,11 +22,15 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     public UserVo loign(UserForm userForm){
-        User user=userMapper.getUserByEmail(userForm.getEmail());
-        if (user==null){
+        User user=null;
+        if (userForm.getEmail()!=null)
+            user=userMapper.getUserByEmail(userForm.getEmail());
+        if (user==null&&userForm.getUsername()!=null){
             user=userMapper.getUserByName(userForm.getUsername());
         }
-        if (user.getPassword().equals(userForm.getPassword())) {
+        if (user==null) return null;
+        String passowrd=MD5Encryption.encrypt(userForm.getPassword());
+        if (user.getPassword().equals(passowrd)) {
             UserVo userVo=new UserVo(user);
             return userVo;
         }
@@ -41,7 +46,7 @@ public class UserServiceImpl implements UserService {
             user=new User();
             user.setUsername(userVo.getUsername());
             user.setEmail(userVo.getEmail());
-            user.setPassword(userVo.getPassword());
+            user.setPassword(MD5Encryption.encrypt(user.getPassword()));
             user.setUserType(userVo.getUserType());
             userMapper.createUser(user);
             log.info("new user id is "+user.getId());
@@ -78,6 +83,7 @@ public class UserServiceImpl implements UserService {
             return ResponseVO.buildFailure("非法更改点赞数");
         if (!user_old.getScore().equals(user_new.getScore()))
             return ResponseVO.buildFailure("非法更改评分");
+        //todo:暂无修改密码
         userMapper.updateUser(user_new);
         return ResponseVO.buildSuccess(userVo);
     }
