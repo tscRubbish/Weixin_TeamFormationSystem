@@ -49,7 +49,7 @@ public class TeamController {
     }
 
     @ApiOperation("创建队伍")
-    @GetMapping("/create")
+    @PostMapping("/create")
     public ResponseVO create(TeamForm teamForm,HttpServletRequest request){
         String token = request.getHeader(JwtUtil.TOKEN_NAME);
         Integer userId = JwtUtil.verifyTokenAndGetUserId(token);

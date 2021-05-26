@@ -10,8 +10,13 @@ DROP TABLE IF EXISTS `ContestPics`;
 
 CREATE TABLE `ContestPics` (
                            `contestId` int(11) NOT NULL,
-                           `pic` varchar(11) NOT NULL,
+                           `pic` varchar(255) NOT NULL,
                            PRIMARY KEY (`contestId`,`pic`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+Alter Table  `ContestPics`
+modify `pic` varchar(255) NOT NULL
+Alter Table  `recommend`
+    modify `pic` varchar(255) NOT NULL
 
 
