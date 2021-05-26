@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
             user=new User();
             user.setUsername(userVo.getUsername());
             user.setEmail(userVo.getEmail());
-            user.setPassword(MD5Encryption.encrypt(user.getPassword()));
+            user.setPassword(MD5Encryption.encrypt(userVo.getPassword()));
             user.setUserType(userVo.getUserType());
             userMapper.createUser(user);
             log.info("new user id is "+user.getId());

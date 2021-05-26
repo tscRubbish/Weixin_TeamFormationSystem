@@ -42,6 +42,16 @@ public class UserDAOTest {
         int id=userMapper.createUser(user);
         System.out.println(id);
     }
+    @Test
+    public void testCreateUser03(){
+        User user=new User();
+        user.setUsername("string");
+        user.setPassword("123456789");
+        user.setEmail("65432114@qq.com");
+        user.setUserType(UserType.User);
+        int id=userMapper.createUser(user);
+        System.out.println(id);
+    }
 
     @Test
     public void testgetUserById01(){
@@ -87,7 +97,7 @@ public class UserDAOTest {
     }
     @Test
     public void testdelete01(){
-        User user=userMapper.getUserById(7);
+        User user=userMapper.getUserById(11);
         System.out.println(JSON.toJSON(user));
         userMapper.deleteUser(user);
     }
