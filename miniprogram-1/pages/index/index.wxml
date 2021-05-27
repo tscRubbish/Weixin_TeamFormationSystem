@@ -3,7 +3,7 @@
   <!--轮播图区域-->
   <swiper class="banners" indicator-dots indicator-color="ivory" indicator-active-color="#666699" autoplay easing-function="linear" circular>
     <swiper-item wx:for="{{bannerList}}" wx:key="Id" >
-      <image src="{{ item }}" class="image"></image>
+      <image src="{{ item }}" class="image" bindtap="toContest"></image>
     </swiper-item>
   </swiper>
 </view>
@@ -15,8 +15,8 @@
     </van-button>
   </view>
   <view class="contestsList">
-    <l-list wx:for="{{contestList}}" title="{{item.text}}" image="/static/images/箭头右.png" url="/pages/contest/contest">
-    <view slot="right-section">{{item.time}}</view>  
+    <l-list wx:for="{{contestList}}" title="{{item.name}}" image="/static/images/箭头右.png" url="/pages/contest/contest">
+    <view slot="right-section">{{item.sponsor.username}}</view>  
     </l-list>
   </view>
 </view>

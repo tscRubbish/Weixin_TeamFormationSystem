@@ -16,7 +16,7 @@ CREATE TABLE `User` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 insert into `User` VALUES (0,'',1,'Admin','123456','123',5,1,'Admin','',''),
-                          (1,'',0,'nju_se','12345678','123',4,1,'Manager','',''),
+                          (1,'',0,'nju_se','12345678','123456',4,1,'Manager','',''),
                           (2,'',0,'Tsc','Tsc20010401','2010075010@qq.com',0,0,'User','','');
 
 DROP TABLE IF EXISTS `Team`;

@@ -1,5 +1,6 @@
 // pages/index/index.js
 import config from '../../config/config'
+import request from '../../utils/request'
 Page({
 
   /**
@@ -13,6 +14,9 @@ Page({
   onTabberChange(event) {
     this.setData({tabber: event.detail})
     wx.redirectTo({url: `/pages/${event.detail}/${event.detail}`})
+  },
+  toContest(event){
+
   },
   /**
    * 生命周期函数--监听页面加载
@@ -29,9 +33,25 @@ Page({
         },
         fail: (res) => {},
         complete: (res) => {},
+      });
+      await wx.request({
+        url: config.host+'/api/contest/getList',
+        data:{
+          "word":"",
+          "page": 1
+        },
+        header:{},
+        method:'GET',
+        success:(result)=>{
+          console.log(result.data);
+          this.setData({contestList:result.data.content});
+        }
       })
+      let result = request('/api/user/login',{username:'nju_se',password:'12345678'},{},'POST',function(result){
+        console.log(result);
+      });
+      console.log(result)
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
