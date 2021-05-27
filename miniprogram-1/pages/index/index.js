@@ -8,7 +8,7 @@ Page({
    */
   data: {
     bannerList:[],
-    contestList:[{"text":"EL比赛","time":"2021-05-09"},{"text":"LPL比赛","time":"2021-01-01"},{"text":"KPL比赛","time":"2021-02-31"},{"text":"LPL比赛","time":"2021-01-01"},{"text":"LPL比赛","time":"2021-01-01"},{"text":"LPL比赛","time":"2021-01-01"},{"text":"LPL比赛","time":"2021-01-01"},{"text":"LPL比赛","time":"2021-01-01"}],
+    contestList:[],
     tabber: "index",
   },
   onTabberChange(event) {
