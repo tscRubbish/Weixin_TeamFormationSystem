@@ -1,12 +1,12 @@
 // pages/index/index.js
+import config from '../../config/config'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    bannerList:[{"pic":"/static/images/EL比赛海报.png"},
-    {"pic":"/static/images/EL比赛海报2.png"}],
+    bannerList:[],
     contestList:[{"text":"EL比赛","time":"2021-05-09"},{"text":"LPL比赛","time":"2021-01-01"},{"text":"KPL比赛","time":"2021-02-31"},{"text":"LPL比赛","time":"2021-01-01"},{"text":"LPL比赛","time":"2021-01-01"},{"text":"LPL比赛","time":"2021-01-01"},{"text":"LPL比赛","time":"2021-01-01"},{"text":"LPL比赛","time":"2021-01-01"}],
     tabber: "index",
   },
@@ -17,8 +17,19 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: async function (options) {
+     await wx.request({
+        url: config.host+'/api/recommend/getRecommend',
+        data: {},
+        header: {},
+        method: 'GET',
+        success: (result) => {
+            console.log(result.data.content);
+            this.setData({bannerList:result.data.content});
+        },
+        fail: (res) => {},
+        complete: (res) => {},
+      })
   },
 
   /**

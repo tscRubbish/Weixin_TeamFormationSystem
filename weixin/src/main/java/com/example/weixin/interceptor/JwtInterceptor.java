@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 public class JwtInterceptor implements HandlerInterceptor {
 
 
-    private Integer shortTokenTime = 20;
+    private Integer shortTokenTime = 60;
 
-    private Integer longTokenTime = 60;
+    private Integer longTokenTime = 120;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

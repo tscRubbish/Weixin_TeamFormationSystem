@@ -8,12 +8,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController()
@@ -26,7 +24,7 @@ public class RecommendController {
 
     @ApiOperation("添加轮播图片")
     @GetMapping("/addPic")
-    public ResponseVO addPic(@PathVariable Integer id,@PathVariable String pic, HttpServletRequest request){
+    public ResponseVO addPic(@RequestParam(name = "id") int id, @RequestParam(name = "pic") String pic, HttpServletRequest request){
             String token = request.getHeader(JwtUtil.TOKEN_NAME);
             Integer userId=JwtUtil.verifyTokenAndGetUserId(token);
             Integer userType = JwtUtil.verifyTokenAndGetUserType(token);
@@ -44,7 +42,7 @@ public class RecommendController {
 
     @ApiOperation("删除指定轮播图")
     @GetMapping("/deletePic")
-    public ResponseVO deletePic(@PathVariable String pic, HttpServletRequest request){
+    public ResponseVO deletePic(@RequestParam(name = "pic") String pic, HttpServletRequest request){
         String token = request.getHeader(JwtUtil.TOKEN_NAME);
         Integer userId=JwtUtil.verifyTokenAndGetUserId(token);
         Integer userType = JwtUtil.verifyTokenAndGetUserType(token);
