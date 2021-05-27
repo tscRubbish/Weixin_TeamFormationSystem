@@ -1,2 +1,30 @@
-<!--pages/register/register.wxml-->
-<text>pages/register/register.wxml</text>
+<view class="container">
+  <view class="wrapper">
+    <view class="left-top-sign">Register</view>
+    <view class="welcome">
+      请开始注册
+    </view>
+    <view class="input-content">
+      <view class="input-item">
+        <text class="tit">用户名</text>
+        <input type="text" placeholder="请输入用户名" id="username" bindinput="handleInput" bindconfirm="login" />
+      </view>
+      <view class="input-item">
+        <text class="tit">邮箱</text>
+        <input type="text" placeholder="请输入邮箱" id="email" bindinput="handleInput" bindconfirm="login" />
+      </view>
+      <view class="input-item">
+        <text class="tit">密码</text>
+        <input type="password" placeholder="请输入密码" id="password" bindinput="handleInput" bindconfirm="login" />
+      </view>
+      <view class="input-item">
+        <text class="tit">邀请码</text>
+        <input type="password" placeholder="输入邀请码注册成为主办方用户(可选)" id="code" bindinput="handleInput" bindconfirm="login" />
+      </view>
+    </view>
+    <button class="confirm-btn" bindtap="login">注册</button>
+  </view>
+  <van-dialog id="van-dialog"  use-slottitle="{{ message }}"
+  show="{{ show }}"
+  bind:close="onClose"/>
+</view>

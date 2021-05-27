@@ -1,34 +1,13 @@
-// pages/login/login.js
-import Dialog from '../../node_modules/@vant/weapp/dist/dialog/';
+// pages/register.js
 Page({
+
   /**
    * 页面的初始数据
    */
   data: {
-    username: '',
-    password: '',
-    show:false,
-    message:""
-  },
-  // 表单项内容发生改变的回调
-  handleInput(event) {
-    console.log(event);
-    let type = event.currentTarget.id;
-    this.setData({
-      [type]: event.detail.value
-    })
-  },
-  async login(){
 
   },
-  toRegister(event){
-   wx.navigateTo({
-     url: '',
-   })
-  },
-  onClose(event){
-    this.setData({show : false});
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */

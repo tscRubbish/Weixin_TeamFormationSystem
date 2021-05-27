@@ -20,4 +20,7 @@
     还没有账号?
     <text bindtap="toRegister">现在注册</text>
   </view>
+  <van-dialog id="van-dialog"  use-slottitle="{{ message }}"
+  show="{{ show }}"
+  bind:close="onClose"/>
 </view>
