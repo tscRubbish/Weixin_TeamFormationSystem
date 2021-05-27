@@ -35,8 +35,16 @@
             where userId=#{member}
           )
     </select>
+    <select id="getPersonalTeam" resultMap="Team">
+      select * from weixin.team
+        where captainId=#{id};
+    </select>
+  <select id="getMemberTeam" resultMap="Team">
+    select weixin.team.* from weixin.members,weixin.team
+    where weixin.team.id=weixin.members.teamId and weixin.members.userId=#{id}
+  </select>
 
-    <update id="updateTeam" parameterType="com.example.weixin.po.Team">
+  <update id="updateTeam" parameterType="com.example.weixin.po.Team">
     update weixin.team
     <set>
       <if test="name!=null">

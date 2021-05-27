@@ -17,5 +17,5 @@ public interface TeamService {
 
     public ResponseVO takePart(UserVo userVo,TeamVo teamVo);
 
-    public ResponseVO getTeamList(TeamVo teamVo);
+    public ResponseVO getTeamList(UserVo userVo);
 }

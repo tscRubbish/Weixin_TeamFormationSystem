@@ -1,2 +1,23 @@
-<!--pages/login/login.wxml-->
-<text>pages/login/login.wxml</text>
+<view class="container">
+  <view class="wrapper">
+    <view class="left-top-sign">LOGIN</view>
+    <view class="welcome">
+      欢迎回来！
+    </view>
+    <view class="input-content">
+      <view class="input-item">
+        <text class="tit">用户名或邮箱</text>
+        <input type="text" placeholder="请输入用户名或邮箱" id="username" bindinput="handleInput" bindconfirm="login" />
+      </view>
+      <view class="input-item">
+        <text class="tit">密码</text>
+        <input type="password" placeholder="请输入密码" id="password" bindinput="handleInput" bindconfirm="login" />
+      </view>
+    </view>
+    <button class="confirm-btn" bindtap="login">登录</button>
+  </view>
+  <view class="register-section">
+    还没有账号?
+    <text bindtap="toRegister">现在注册</text>
+  </view>
+</view>

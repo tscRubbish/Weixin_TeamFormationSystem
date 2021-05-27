@@ -88,12 +88,16 @@ public class TeamServiceImpl implements TeamService {
         }
         return ResponseVO.buildSuccess(teamVo);
     }
-    public ResponseVO getTeamList(TeamVo teamVo){
+    public ResponseVO getTeamList(UserVo userVo){
         try {
-            if (teamMapper.getTeamById(teamVo.getId()) == null)
-                ResponseVO.buildFailure("无此用户，无法查询队伍列表");
-            Team team=new Team(teamVo);
-            return ResponseVO.buildSuccess(teamMapper.getMembers(team));
+            List<Team> list=teamMapper.getPersonalTeam(userVo.getId());
+            list.addAll(teamMapper.getMemberTeam(userVo.getId()));
+            if (list==null) return ResponseVO.buildSuccess();
+            List<TeamVo> anslist=new ArrayList<TeamVo>();
+            for (Team team:list){
+                anslist.add(new TeamVo(team,contestMapper,teamMapper,userMapper));
+            }
+            return ResponseVO.buildSuccess(anslist);
         }catch (Exception e){
             return ResponseVO.buildFailure(e.getMessage());
         }

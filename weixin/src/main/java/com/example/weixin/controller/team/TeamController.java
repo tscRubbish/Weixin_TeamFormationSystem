@@ -79,8 +79,12 @@ public class TeamController {
 
     @ApiOperation("获得个人队伍列表")
     @PostMapping("/getTeamList")
-    public ResponseVO getTeamList(@RequestBody TeamVo teamVo){
-        return teamService.getTeamList(teamVo);
+    public ResponseVO getTeamList(@RequestBody UserVo userVo,HttpServletRequest request){
+        if (userVo==null) return ResponseVO.buildFailure("空用户查询队伍");
+        String token = request.getHeader(JwtUtil.TOKEN_NAME);
+        Integer userId = JwtUtil.verifyTokenAndGetUserId(token);
+        if(userId!=userVo.getId()) return ResponseVO.buildFailure("非该用户无法获得队伍列表");
+        return teamService.getTeamList(userVo);
     }
 
 }

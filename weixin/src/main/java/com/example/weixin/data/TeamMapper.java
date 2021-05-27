@@ -79,4 +79,13 @@ public interface TeamMapper {
      * @return
      */
     Team selectTeamOfMemberAndContest(@Param("member") Integer member,@Param("contest") Integer contest);
+
+    List<Team> getPersonalTeam(@Param("id") Integer id);
+
+    /**
+     * 获得用户参加的队伍
+     * @param id
+     * @return
+     */
+    List<Team> getMemberTeam(@Param("id") Integer id);
 }

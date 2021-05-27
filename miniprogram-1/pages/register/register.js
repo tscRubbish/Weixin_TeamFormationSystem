@@ -1,29 +1,13 @@
-// pages/login/login.js
+// pages/register/register.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    username: '',
-    password: ''
-  },
-  // 表单项内容发生改变的回调
-  handleInput(event) {
-    console.log(event);
-    let type = event.currentTarget.id;
-    this.setData({
-      [type]: event.detail.value
-    })
-  },
-  async login(){
 
   },
-  toRegister(event){
-   wx.navigateTo({
-     url: '',
-   })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
