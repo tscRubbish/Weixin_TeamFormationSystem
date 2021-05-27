@@ -23,9 +23,9 @@ public class UserServiceImpl implements UserService {
 
     public UserVo loign(UserForm userForm){
         User user=null;
-        if (userForm.getEmail()!=null)
+        if (userForm.getEmail()!=null){
             user=userMapper.getUserByEmail(userForm.getEmail());
-        else if (user==null&&userForm.getUsername()!=null){
+            if (user==null&&userForm.getUsername()!=null)
             user=userMapper.getUserByName(userForm.getUsername());
         }
         if (user==null) return null;
