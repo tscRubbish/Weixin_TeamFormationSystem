@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.weixin.data.UserMapper;
 import com.example.weixin.eums.UserType;
 import com.example.weixin.po.User;
-import jdk.nashorn.internal.parser.JSONParser;
+
 import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
