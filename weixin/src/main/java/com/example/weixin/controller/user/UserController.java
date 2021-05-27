@@ -39,7 +39,7 @@ public class UserController {
             return ResponseVO.buildFailure("邮箱或密码错误");
         }
         UserWithTokenVo userWithToken = new UserWithTokenVo();
-        BeanUtils.copyProperties(uservo,userWithToken);
+        userWithToken.setUserVo(uservo);
         userWithToken.setNjuToken(JwtUtil.createToken(uservo.getId(),uservo.getUserType().getValue(),shortTokenTime));
         userWithToken.setNjuLongToken(JwtUtil.createToken(uservo.getId(),uservo.getUserType().getValue(),longTokenTime));
         return ResponseVO.buildSuccess(userWithToken);
