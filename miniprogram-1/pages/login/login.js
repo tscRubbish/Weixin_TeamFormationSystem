@@ -1,5 +1,4 @@
 // pages/login/login.js
-import Dialog from '../../node_modules/@vant/weapp/dist/dialog/';
 Page({
   /**
    * 页面的初始数据
