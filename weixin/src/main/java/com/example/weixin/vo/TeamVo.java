@@ -7,7 +7,7 @@ import com.example.weixin.data.UserMapper;
 import com.example.weixin.po.Contest;
 import com.example.weixin.po.Team;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.internal.NotNull;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.NonNull;

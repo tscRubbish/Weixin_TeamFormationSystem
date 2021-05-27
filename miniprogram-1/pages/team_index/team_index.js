@@ -6,6 +6,69 @@ const app = getApp()
 
 Page({
   data: {
+    userVo:{
+      "description": "string",
+      "email": "string",
+      "id": 0,
+      "likes": 0,
+      "password": "string",
+      "pic": "string",
+      "score": 0,
+      "tags": [
+        "string"
+      ],
+      "userType": "Admin",
+      "username": "string"
+    },
+    teamVo:{
+      "id": 1,
+      "pic": "",
+      "name": "5A430",
+      "description": "垃圾回收中心",
+      "captain": {
+          "id": 2,
+          "pic": "",
+          "likes": 0,
+          "email": "2010075010@qq.com",
+          "username": "Tsc",
+          "password": "Tsc20010401",
+          "score": 0.0,
+          "userType": "User",
+          "tags": [
+              ""
+          ],
+          "description": ""
+      },
+      "members": [],
+      "captainNotice": "114514",
+      "contest": {
+          "id": 1,
+          "name": "EL比赛",
+          "sponsor": {
+              "id": 1,
+              "pic": "",
+              "likes": 0,
+              "email": "123",
+              "username": "nju_se",
+              "password": "12345678",
+              "score": 4.0,
+              "userType": "Manager",
+              "tags": [
+                  ""
+              ],
+              "description": ""
+          },
+          "startTime": "2021-03-01",
+          "endTime": "2021-05-31",
+          "description": "南大软院",
+          "tags": [
+              "编程",
+              "算法"
+          ],
+          "pics": []
+      }
+    },
+    id: 1,
     introduction:"",
     choose_match:"点我选择",
     show:false,
@@ -42,7 +105,9 @@ Page({
         memberName_array:["TSC"]
       }
       
-    ]
+    ],
+    token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0aGlzIGlzIG5qdSBzZSB0b2tlbiIsImF1ZCI6IldFQiIsImlzcyI6Ik5KVSIsInVzZXJUeXBlIjoyLCJleHAiOjE2MjIxMTgzMzgsInVzZXJJZCI6MSwiaWF0IjoxNjIyMTE3MTM4fQ.Y3pa82M3LPBTcXsIJYwFZu5q3KFHj5lihRIkvl71IxA",
+    longToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0aGlzIGlzIG5qdSBzZSB0b2tlbiIsImF1ZCI6IldFQiIsImlzcyI6Ik5KVSIsInVzZXJUeXBlIjoyLCJleHAiOjE2MjIxMjA3MzgsInVzZXJJZCI6MSwiaWF0IjoxNjIyMTE3MTM4fQ.f54vFYAej4RBW6JA3YUmYOMy88-gQFRy0hrUNuxt2EU"
   },
   onTabberChange(event) {
     this.setData({tabber: event.detail})
@@ -51,6 +116,49 @@ Page({
   onLoad() {
     wx.setNavigationBarTitle({
       title: '组队'
+    });
+
+    var that = this;
+
+    await wx.request({
+      url: 'http://localhost:8081/api/user/getInfo?id=' + that.data.id,
+      method: 'GET',
+      success(res){
+        // console.log(res.data.content);
+        that.setData({
+          userVo: res.data.content,
+        });
+       console.log(that.data.userVo);
+       console.log(that.data.userVo.email);
+      }
+    });
+
+
+    await wx.request({
+      url: 'http://localhost:8081/api/user/login',
+      method: 'POST',
+      data: {
+        "email": that.data.userVo.email,
+        "password": that.data.userVo.password,
+        "username": that.data.userVo.username
+      },
+      success:(res)=>{
+        console.log(that.data.userVo.username);
+        console.log(res);
+      }
+    })
+
+    await wx.request({
+      url: 'http://localhost:8081/api/team/getTeamList',
+      method: 'POST',
+      header:{
+        "nju-token":that.data.token,
+        "nju-long-token":that.data.longToken,
+      },
+      data:that.data.userVo,
+      success(res){
+        console.log(res);
+      }
     })
   },
 
@@ -87,4 +195,9 @@ Page({
     this.setData({ show: false });
   },
   
+  join_team(event){
+    // console.log(this.data.TID);
+    
+  }
+
 })

@@ -3,7 +3,7 @@ package com.example.weixin.po;
 import com.example.weixin.vo.TeamForm;
 import com.example.weixin.vo.TeamVo;
 import com.example.weixin.vo.UserVo;
-import com.sun.istack.internal.NotNull;
+
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -33,7 +33,7 @@ public class Team {
         captainId=teamForm.getCaptainId();
         contestId=teamForm.getContestId();
     }
-    public Team(@NotNull TeamVo teamVo){
+    public Team(@NonNull TeamVo teamVo){
         id=teamVo.getId();
         pic=teamVo.getPic();
         name=teamVo.getName();

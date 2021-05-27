@@ -2,8 +2,9 @@ package com.example.weixin.po;
 
 import com.example.weixin.eums.UserType;
 import com.example.weixin.vo.UserVo;
-import com.sun.istack.internal.NotNull;
+
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,7 +26,7 @@ public class User {
     public User(){
 
     }
-    public User(@NotNull UserVo userVo){
+    public User(@NonNull UserVo userVo){
         id=userVo.getId();
         pic=userVo.getPic();
         likes=userVo.getLikes();
