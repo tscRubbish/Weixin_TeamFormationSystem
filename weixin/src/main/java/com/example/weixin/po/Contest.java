@@ -2,7 +2,6 @@ package com.example.weixin.po;
 
 import com.example.weixin.vo.ContestForm;
 import com.example.weixin.vo.ContestVo;
-import com.sun.istack.internal.NotNull;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -32,7 +31,7 @@ public class Contest {
         startTime=contestForm.getStartTime();
         endTime=contestForm.getEndTime();
     }
-    public Contest(@NotNull ContestVo contestVo){
+    public Contest(@NonNull ContestVo contestVo){
         id=contestVo.getId();
         name=contestVo.getName();
         sponsorId=contestVo.getSponsor().getId();

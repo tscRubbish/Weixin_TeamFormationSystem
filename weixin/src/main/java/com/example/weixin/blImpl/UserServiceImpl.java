@@ -1,5 +1,6 @@
 package com.example.weixin.blImpl;
 
+import com.alibaba.fastjson.JSON;
 import com.example.weixin.bl.UserService;
 import com.example.weixin.data.UserMapper;
 import com.example.weixin.po.User;
@@ -24,7 +25,9 @@ public class UserServiceImpl implements UserService {
     public UserVo loign(UserForm userForm){
         User user=null;
         if (userForm.getEmail()!=null){
+            System.out.println(JSON.toJSON(userForm));
             user=userMapper.getUserByEmail(userForm.getEmail());
+
             if (user==null&&userForm.getUsername()!=null)
             user=userMapper.getUserByName(userForm.getUsername());
         }
