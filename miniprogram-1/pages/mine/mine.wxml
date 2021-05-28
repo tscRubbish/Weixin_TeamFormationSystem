@@ -67,5 +67,5 @@
     bind:select="onShareSelect"  
     bind:close="onShareClose"
   />  <!-- onShareSelect还需完善 -->
-  <van-button type="danger" round block="true" bind:click="exit">退出登录</van-button>
+  <van-button type="danger" round block="true" bind:click="exit">{{login}}</van-button>
 </van-cell-group>

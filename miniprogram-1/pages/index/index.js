@@ -47,7 +47,7 @@ Page({
           this.setData({contestList:result.data.content});
         }
       })
-      let result = request('/api/user/login',{username:'nju_se',password:'12345678'},{},'POST',function(result){
+      let result = request('/api/user/login',{username:'nju_se',password:'12345678',email:''},{},'POST',function(result){
         console.log(result);
       });
       console.log(result)

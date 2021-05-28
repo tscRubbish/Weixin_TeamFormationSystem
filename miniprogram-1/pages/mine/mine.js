@@ -1,10 +1,11 @@
 import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
+import config from "../../config/config";
 
 Page({
   data: {
     tabber: "mine",
-    id: 123,
-    name: "NJUer",
+    id: 0,
+    name: "未登录",
     words: "这个人很懒哦，还没有填写介绍",
     like: 0,
     likeType: "like-o",
@@ -20,6 +21,9 @@ Page({
       { name: '分享海报', icon: 'poster' },
       { name: '二维码', icon: 'qrcode' },
     ],
+    token: "",
+    longToken: "",
+    login: "退出登录"
   },
   
   //分享
@@ -70,12 +74,53 @@ Page({
 
   //退出登录
   exit() {
-    wx.request({
-      url: 'http://localhost:8080/cat/getName?id=1',
-      success: function(res) {
-        console.log(res.data)// 服务器回包信息
-      }
-    })
+    if (this.data.login == "退出登录") {
+      this.setData({
+        id: 0,
+        name: "未登录",
+        login: "点击登录"
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    }
+  },
+
+  onShow() {
+    try {
+      this.setData({
+        id: wx.getStorageSync('id')
+      })
+    } catch(e) {
+      console.log(e);
+    }
+    if (this.data.id != 0) {
+      console.log("wsy")
+      this.setData({
+        token: wx.getStorageSync("token"),
+        longToken: wx.getStorageSync("longToken")
+      })
+      wx.request({
+        url: config.host + "/api/user/getInfo?id=" + this.data.id,
+        header: {
+          "nju-token": this.data.token,
+          "nju-long-token": this.data.longToken
+        },
+        success: (res) => {
+          console.log(res);
+          this.setData({name: res.data.content.username});
+        },
+        fail: (res) => {
+          console.log(res)
+        }
+      })
+    }
+    if (this.data.id <= 0) {
+      this.setData({login: "点击登录"})
+    } else {
+      this.setData({login: "退出登录"})
+    }
   },
 
   onLoad() {

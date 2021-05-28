@@ -1,4 +1,7 @@
 // pages/login/login.js
+import request from "../../utils/request"
+import config from "../../config/config"
+
 Page({
   /**
    * 页面的初始数据
@@ -17,9 +20,35 @@ Page({
       [type]: event.detail.value
     })
   },
-  async login(){
 
+  async do() {
+     wx.request({
+        url: config.host + "/api/user/login",
+        data: {
+          username:this.data.username,
+          password:this.data.password,
+          email:''
+        },
+        method: "POST",
+        fail: (res) => {
+          console.log(res)
+        },
+        success: (res) => {
+          console.log(res.data)
+          wx.setStorageSync('id',res.data.content.userVo.id),
+          wx.setStorageSync('token', res.data.content.njuToke),
+          wx.setStorageSync('longToken', res.data.content.njuLongToken),
+          wx.navigateTo({ 
+            url: '/pages/mine/mine',
+          })
+        },
+      })
   },
+
+  login(){ 
+    this.do();
+  },
+
   toRegister(event){
    wx.navigateTo({
      url: '',
@@ -32,7 +61,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**
