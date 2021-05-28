@@ -15,8 +15,16 @@
     label="介绍"
     value="{{ intro }}"
     bind:change="onIntroChange"
+    input-align="right"
+    title-width="75rpx"
   />
-  
+  <van-field
+    label="邮箱"
+    value="{{ email }}"
+    bind:change="onEmailChange"
+    input-align="right"
+    title-width="75rpx"
+  />
 </van-cell-group>
 
 <van-popup show="{{ showImage }}" bind:close="onImageClose">

@@ -1,3 +1,5 @@
+import config from "../../../../config/config"
+
 Page({
 
   /**
@@ -10,8 +12,8 @@ Page({
     id: 0,
     name: null,
     words: null,
-    date: "",
-    showDate: false
+    pic: "",
+    email: ""
   },
 
   //编辑头像
@@ -28,6 +30,11 @@ Page({
     this.setData({ showName: true });
   },
 
+  onNameChange(e) {
+    this.setData({name:e.detail})
+    console.log(this.data.name)
+  },
+
   onNameClose() {
     this.setData({ showName: false });
   },
@@ -40,6 +47,27 @@ Page({
 
   //返回
   onClickLeft() {
+    wx.request({
+      url: config.host + "/api/user/changeInfo",
+      method: "POST",
+      data: {
+        "description": this.data.words,
+        "email": this.data.email,
+        "id": this.data.id,
+        "likes": 0,
+        "password": "string",
+        "pic": this.data.pic,
+        "score": 0,
+        "tags": [
+          "string"
+        ],
+        "userType": "Admin",
+        "username": this.data.name
+      },
+      success: (res) => {
+        console.log(res);
+      }
+    })
     wx.navigateBack({
       delta: 1,
     })
@@ -53,7 +81,8 @@ Page({
     this.setData({
       id: options.id,
       name: options.name,
-      intro: options.intro
+      intro: options.intro,
+      email: options.email
     })
   },
 })

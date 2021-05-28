@@ -54,7 +54,7 @@
 
 <van-cell-group>
   <van-cell title="编辑个人信息" is-link link-type="navigateTo"
-  url="../mine/mine-pages/changement/changement?id={{id}}&name={{name}}&intro={{words}}" />
+  url="../mine/mine-pages/changement/changement?id={{id}}&name={{name}}&intro={{words}}&email={{email}}" />
   <van-cell title="设置" is-link link-type="navigateTo"
   url="../mine/mine-pages/setting/setting" />
   <van-cell title="反馈与帮助" is-link link-type="navigateTo"
