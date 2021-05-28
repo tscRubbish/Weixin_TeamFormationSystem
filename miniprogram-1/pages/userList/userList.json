@@ -4,6 +4,7 @@
     "van-checkbox": "@vant/weapp/checkbox/index",
   "van-checkbox-group": "@vant/weapp/checkbox-group/index",
   "van-button": "@vant/weapp/button/index",
-  "van-divider": "@vant/weapp/divider/index"
+  "van-divider": "@vant/weapp/divider/index",
+  "l-list":"/miniprogram_npm/lin-ui/list/index"
   }
 }

@@ -15,8 +15,8 @@
     </van-button>
   </view>
   <view class="contestsList">
-    <l-list wx:for="{{contestList}}" title="{{item.text}}" image="/static/images/箭头右.png" url="/pages/contest/contest">
-    <view slot="right-section">{{item.time}}</view>  
+    <l-list wx:for="{{contestList}}" title="{{item.name}}" data-item="{{item}}" image="/static/images/箭头右.png" bindtap="toContest">
+    <view slot="right-section">{{item.sponsor.username}}</view>  
     </l-list>
   </view>
 </view>

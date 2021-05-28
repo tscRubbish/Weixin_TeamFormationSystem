@@ -1,5 +1,6 @@
 // pages/index/index.js
 import config from '../../config/config'
+import request from '../../utils/request'
 Page({
 
   /**
@@ -7,7 +8,7 @@ Page({
    */
   data: {
     bannerList:[],
-    contestList:[{"text":"EL比赛","time":"2021-05-09"},{"text":"LPL比赛","time":"2021-01-01"},{"text":"KPL比赛","time":"2021-02-31"},{"text":"LPL比赛","time":"2021-01-01"},{"text":"LPL比赛","time":"2021-01-01"},{"text":"LPL比赛","time":"2021-01-01"},{"text":"LPL比赛","time":"2021-01-01"},{"text":"LPL比赛","time":"2021-01-01"}],
+    contestList:[],
     tabber: "index",
   },
   onTabberChange(event) {
@@ -18,20 +19,26 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
-     await wx.request({
-        url: config.host+'/api/recommend/getRecommend',
-        data: {},
-        header: {},
-        method: 'GET',
-        success: (result) => {
-            console.log(result.data.content);
-            this.setData({bannerList:result.data.content});
-        },
-        fail: (res) => {},
-        complete: (res) => {},
+    let that=this
+    request('/api/recommend/getRecommend',{},{},'GET',function (result) {
+      console.log(result.data.content);
+      that.setData({bannerList:result.data.content});
+    });
+    request('/api/contest/getList',{"word":"","page": 1},{},'GET',function (result){
+      console.log(result.data);
+      that.setData({contestList:result.data.content});
+    });
+    request('/api/user/login',{username:'nju_se',password:'12345678',email:''},{},'POST',function(result){
+      console.log(result);
+    });
+  },
+  toContest(event){
+      console.log(event);
+      let contest=event.currentTarget.dataset.item;
+      wx.navigateTo({
+        url: '/pages/contest/contest?data='+JSON.stringify(contest.id),
       })
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

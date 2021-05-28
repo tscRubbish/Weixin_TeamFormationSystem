@@ -1,18 +1,25 @@
 <!--pages/userList/userList.wxml-->
-<form>
-<van-search placeholder="请输入搜索关键词" />
-<text class="title">标签</text>
-<van-button round type="info" class="search" size="small">搜索</van-button>
+<van-search value="{{keyword}}" placeholder="请输入搜索关键词" id="keyword" bind:change="handleInput" bindconfirm="search"/>
+<text class="title" >搜索范围包括用户名、标签和描述</text>
+<van-button round type="info" class="search" size="small" bindtap="search">搜索</van-button>
+<!--
 <van-checkbox-group class="tagsCheck"> 
   <van-checkbox wx:for="{{tagsList}}" value="{{tagsCheck[index]}}" bindtap="tagsCheckChange" data-index="{{index}}" icon-size="15px" font-size="5rpx">
     {{item}}
   </van-checkbox>
 </van-checkbox-group>
-</form>
+-->
 <van-divider hairline borderColor="#1989fa"/>
 <view class="result">
-  <text wx:if="{{!hasResult}}">暂无搜索结果</text>
+  <view wx:if="{{hasResult==false}}">暂无搜索结果</view>
   <view wx:else>
-    
+    <l-list wx:for="{{userList}}" title="{{item.username}}" data-item="{{item}}" wx:key="id" image="/static/images/箭头右.png" bindtap="toUser">
+      <view></view>  
+    </l-list>
   </view>
+  <view>
+      <van-button bindtap="prePage">上一页</van-button>
+      <text>当前页:{{page}}</text>
+      <van-button bindtap="nextPage" wx:if="{{hasResult}}">下一页</van-button>
+    </view>
 </view>
