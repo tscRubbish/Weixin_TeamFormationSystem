@@ -23,7 +23,8 @@ Page({
     ],
     token: "",
     longToken: "",
-    login: "退出登录"
+    login: "退出登录",
+    email: ""
   },
   
   //分享
@@ -40,9 +41,33 @@ Page({
   onLikeChange(e) {
     let type = e.currentTarget.dataset.type
     if (type == "like-o") {
-      this.setData({
-        like: this.data.like + 1,
-        likeType: "like"
+      wx.request({
+        url: config.host + "/api/user/updateLikes",
+        method: "POST",
+        header: {
+          "nju-token": this.data.token,
+          "nju-long-token": this.data.longToken
+        },
+        data: {
+          "description": this.data.words,
+          "email": this.data.email,
+          "id": this.data.id,
+          "likes": this.data.like,
+          "password": "string",
+          "pic": "string",
+          "score": this.data.good,
+          "tags": [
+            "string"
+          ],
+          "userType": "Admin",
+          "username": this.data.name
+        },
+        success: (res) => {
+          this.setData({
+            like: this.data.like + 1,
+            likeType: "like"
+          })
+        }
       })
       Toast.success('已关注');
     } else if (type == "like") {
@@ -58,9 +83,33 @@ Page({
   onGoodChange(e) {
     let type = e.currentTarget.dataset.type
     if (type == "good-job-o") {
-      this.setData({
-        good: this.data.good + 1,
-        goodType: "good-job"
+      wx.request({
+        url: config.host + "/api/user/updateScores?score=" + this.data.good,
+        method: "POST",
+        header: {
+          "nju-token": this.data.token,
+          "nju-long-token": this.data.longToken
+        },
+        data: {
+          "description": this.data.words,
+          "email": this.data.email,
+          "id": this.data.id,
+          "likes": this.data.like,
+          "password": "string",
+          "pic": "string",
+          "score": this.data.good,
+          "tags": [
+            "string"
+          ],
+          "userType": "Admin",
+          "username": this.data.name
+        },
+        success: (res) => {
+          this.setData({
+            good: this.data.good + 1,
+            goodType: "good-job"
+          })
+        }
       })
       Toast.success("已点赞")
     } else if (type == "good-job") {
@@ -78,7 +127,11 @@ Page({
       this.setData({
         id: 0,
         name: "未登录",
-        login: "点击登录"
+        login: "点击登录",
+        good: 0,
+        words:"",
+        like: 0,
+        medal: 0
       })
     } else {
       wx.navigateTo({
@@ -109,7 +162,14 @@ Page({
         },
         success: (res) => {
           console.log(res);
-          this.setData({name: res.data.content.username});
+          var temp = res.data.content;
+          this.setData({
+            name: temp.username,
+            email: temp.email,
+            like: temp.likes,
+            good: temp.score,
+            words: temp.description
+          });
         },
         fail: (res) => {
           console.log(res)
