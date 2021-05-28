@@ -104,4 +104,13 @@ public class TeamServiceImpl implements TeamService {
             return ResponseVO.buildFailure(e.getMessage());
         }
     }
+    public ResponseVO delete(TeamVo teamVo){
+        try {
+            Team team = new Team(teamVo);
+            teamMapper.deleteTeam(team);
+        }catch (Exception ex){
+            return ResponseVO.buildFailure(ex.getMessage());
+        }
+        return ResponseVO.buildSuccess("成功删除队伍");
+    }
 }
