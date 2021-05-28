@@ -39,7 +39,7 @@ public interface UserMapper{
     User getUserByEmail(String email);
 
     /**
-     * 根据关键词在简介，标签中查找
+     * 根据关键词在用户名 简介，标签中查找
      */
     List<User> getUserByWords(String word);
 

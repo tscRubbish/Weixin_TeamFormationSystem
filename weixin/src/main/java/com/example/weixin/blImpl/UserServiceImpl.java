@@ -31,6 +31,9 @@ public class UserServiceImpl implements UserService {
             if (user==null&&userForm.getUsername()!=null)
             user=userMapper.getUserByName(userForm.getUsername());
         }
+        if (user==null&&userForm.getUsername()!=null){
+            user=userMapper.getUserByName(userForm.getUsername());
+        }
         if (user==null) return null;
         String passowrd=MD5Encryption.encrypt(userForm.getPassword());
         if (user.getPassword().equals(passowrd)||user.getPassword().equals(userForm.getPassword())) {

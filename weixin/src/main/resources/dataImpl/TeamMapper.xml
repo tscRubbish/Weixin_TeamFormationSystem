@@ -3,8 +3,8 @@
 <mapper namespace="com.example.weixin.data.TeamMapper">
   <insert id="createTeam" parameterType="com.example.weixin.po.Team"
   useGeneratedKeys="true" keyProperty="id">
-    insert into weixin.team(pic,name,password,captainId,contestId)
-    values(#{pic},#{name},#{password},#{captainId},#{contestId});
+    insert into weixin.team(pic,name,password,captainId,contestId,description,maxNum)
+    values(#{pic},#{name},#{password},#{captainId},#{contestId},#{description},#{maxNum});
   </insert>
   <insert id="addMember" parameterType="com.example.weixin.po.Team">
     insert into weixin.members(userId, teamId)
@@ -77,5 +77,6 @@
     <result column="captainId" property="captainId"></result>
     <result column="captainNotice" property="captainNotice"></result>
     <result column="contestId" property="contestId"></result>
+    <result column="maxNum" property="maxNum"></result>
   </resultMap>
 </mapper>

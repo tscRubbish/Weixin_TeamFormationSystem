@@ -75,6 +75,8 @@ public class TeamServiceImpl implements TeamService {
         try{
             if (teamMapper.selectTeamOfMemberAndContest(userVo.getId(),team.getContestId())!=null)
                 return ResponseVO.buildFailure("该用户已参与该比赛的队伍");
+            if (teamMapper.getMembers(team).size()+1>=team.getMaxNum())
+                return ResponseVO.buildFailure("队伍已达最大人数");
             teamMapper.addMember(team,userVo.getId());
         }catch (Exception e){
             return ResponseVO.buildFailure(e.getMessage());
@@ -101,5 +103,14 @@ public class TeamServiceImpl implements TeamService {
         }catch (Exception e){
             return ResponseVO.buildFailure(e.getMessage());
         }
+    }
+    public ResponseVO delete(TeamVo teamVo){
+        try {
+            Team team = new Team(teamVo);
+            teamMapper.deleteTeam(team);
+        }catch (Exception ex){
+            return ResponseVO.buildFailure(ex.getMessage());
+        }
+        return ResponseVO.buildSuccess("成功删除队伍");
     }
 }

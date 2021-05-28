@@ -1,6 +1,33 @@
 <!--pages/ContestsList/contestsList.wxml-->
-<text>pages/ContestsList/contestsList.wxml</text>
-<text>hello</text>
+<!-- 这里是搜索框 -->
+<scroll-view scroll-y="true" style="height: 430px">
+<van-search
+  id="keyword"
+  value="{{ value }}"
+  placeholder="请输入比赛"
+  show-action
+  bind:change="handleInput"
+/>
+<text class="title" >搜索范围包括比赛名、标签</text>
+<van-button round type="info" class="search" size="small" bindtap="search">搜索</van-button>
+<van-cell-group  title="比赛栏目">
+  <view wx:if="{{hasResult==false}}">暂无搜索结果</view>
+  <view wx:else>
+    <!--<van-cell data-ifo = "{{item}}" wx:for="{{contestsList}}" wx:key = "id" title="{{item.name}}" value="{{item.sponsor.username}}"
+    label="描述信息" border="{{ false }}" bindtap = "toContest"/>
+  </view>
+</van-cell-group>-->
+  <l-list wx:for="{{contestList}}" title="{{item.name}}" data-item="{{item}}" wx:key="id" image="/static/images/箭头右.png" bindtap="toContest">
+    </l-list>
+  </view>
+</van-cell-group>
+<view>
+      <van-button bindtap="prePage">上一页</van-button>
+      <text>当前页:{{page}}</text>
+      <van-button bindtap="nextPage" wx:if="{{hasResult}}">下一页</van-button>
+    </view>
+</scroll-view>
+
 <van-tabbar active="{{ tabber }}" bind:change="onTabberChange">
   <van-tabbar-item name="index" icon="home-o">主页</van-tabbar-item>
   <van-tabbar-item name="contestsList" icon="search">比赛</van-tabbar-item>

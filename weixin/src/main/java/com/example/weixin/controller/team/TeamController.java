@@ -53,10 +53,10 @@ public class TeamController {
 
     @ApiOperation("创建队伍")
     @PostMapping("/create")
-    public ResponseVO create(TeamForm teamForm,HttpServletRequest request){
+    public ResponseVO create(@RequestBody TeamForm teamForm,HttpServletRequest request){
         String token = request.getHeader(JwtUtil.TOKEN_NAME);
         Integer userId = JwtUtil.verifyTokenAndGetUserId(token);
-        if (userId==null){
+        if (userId==null||userId!=teamForm.getCaptainId()){
             return ResponseVO.buildFailure("请先登录在创建队伍");
         }
         return teamService.createTeam(teamForm);
@@ -87,4 +87,13 @@ public class TeamController {
         return teamService.getTeamList(userVo);
     }
 
+    @ApiOperation("解散队伍")
+    @PostMapping("/delete")
+    public ResponseVO getTeamList(@RequestBody TeamVo teamVo,HttpServletRequest request){
+        if (teamVo==null) return ResponseVO.buildFailure("解散空队伍");
+        String token = request.getHeader(JwtUtil.TOKEN_NAME);
+        Integer userId = JwtUtil.verifyTokenAndGetUserId(token);
+        if(userId!=teamVo.getCaptain().getId()) return ResponseVO.buildFailure("非队长无法解散队伍列表");
+        return teamService.delete(teamVo);
+    }
 }

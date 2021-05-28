@@ -1,1 +1,11 @@
-/* pages/ContestsList/contestsList.wxss */
+.col1{
+  position:fixed;
+  bottom:0rpx;
+  width:100%;
+}
+.list{
+  top:500rpx;
+}
+.p{
+  margin-bottom:100rpx
+}

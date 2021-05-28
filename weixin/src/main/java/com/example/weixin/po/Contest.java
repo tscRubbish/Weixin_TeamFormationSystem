@@ -40,7 +40,7 @@ public class Contest {
         description=contestVo.getDescription();
         StringBuilder stringBuilder=new StringBuilder();
         for (String str:contestVo.getTags()){
-            stringBuilder.append(str);
+            stringBuilder.append(str+" ");
         }
         tags=stringBuilder.toString();
     }

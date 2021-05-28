@@ -18,4 +18,6 @@ public interface TeamService {
     public ResponseVO takePart(UserVo userVo,TeamVo teamVo);
 
     public ResponseVO getTeamList(UserVo userVo);
+
+    public ResponseVO delete(TeamVo teamVo);
 }

@@ -2,43 +2,26 @@
 <view class="indexContainer">
   <!--轮播图区域-->
   <swiper class="banners" indicator-dots indicator-color="ivory" indicator-active-color="#666699" autoplay easing-function="linear" circular>
-    <swiper-item wx:for="{{bannerList}}" wx:key="Id" >
-      <image src="{{item.pic}}" class="image"></image>
+    <swiper-item wx:for="{{contest.pics}}" wx:key="Id" >
+      <image src="{{item}}" class="image"></image>
     </swiper-item>
   </swiper>
 </view>
 <view>
-  <van-cell title="主办方" is-link value="{{creater.name}}" url="/pages/index/index"/>
+  <van-cell title="主办方" is-link value="{{contest.sponsor.username}}" url="/pages/index/index"/>
 </view>
 <view class="header">
     <text class="title" >比赛标签</text>
 </view>
 <view class="tags">
-  <van-tag type="primary">益智</van-tag>
-  <van-tag type="primary">休闲</van-tag>
-  <van-tag type="primary">算法</van-tag>
-  <van-tag type="primary">交互</van-tag>
-  <van-tag type="primary">软工</van-tag>
-  <van-tag type="primary">团队</van-tag>
-  <van-tag type="primary">技术</van-tag>
-  <van-tag type="primary">标签</van-tag>
-  <van-tag type="primary">标签</van-tag>
-  <van-tag type="primary">标签</van-tag>
-  <van-tag type="primary">标签</van-tag>
-  <van-tag type="primary">标签</van-tag>
-  <van-tag type="primary">标签</van-tag>
-  <van-tag type="primary">标签</van-tag>
-  <van-tag type="primary">标签</van-tag>
-  <van-tag type="primary">标签</van-tag>
-  <van-tag type="primary">标签</van-tag>
-  <van-tag type="primary">标签</van-tag>
+  <van-tag class="tag" type="primary" wx:for="{{contest.tags}}">{{item}}</van-tag>
 </view>
 <view>
 <!--添加标签-->
 </view>
 <van-cell title="比赛信息" is-link bindtap="showInfomation"/>
 <view class="infoContainer" wx:if="{{infoActive}}">
-  <text class="infomation" >{{info.discreption}}</text>
+  <text class="infomation" >{{contest.description}}</text>
 </view>
 <view class="buttonContainer">
   <van-button plain hairline type="primary" bind:click="toUserList">开始组队</van-button>

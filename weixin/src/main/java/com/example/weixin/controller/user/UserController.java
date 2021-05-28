@@ -53,7 +53,7 @@ public class UserController {
     @ApiOperation("搜索用户")
     @GetMapping("/search")
     public ResponseVO search(@RequestParam(name = "word") String word,@RequestParam(name = "page") int page){
-        if (page<=0) return null;
+        if (page<=0) return ResponseVO.buildFailure("");
         return userService.search(word,page);
     }
 

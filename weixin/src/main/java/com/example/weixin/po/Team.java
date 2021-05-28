@@ -24,6 +24,7 @@ public class Team {
     private ArrayList<Integer> membersId;
     private String captainNotice;
     private Integer contestId;
+    private Integer maxNum;
     public Team(){
 
     }
@@ -32,6 +33,8 @@ public class Team {
         password=teamForm.getPassword();
         captainId=teamForm.getCaptainId();
         contestId=teamForm.getContestId();
+        description=teamForm.getDescription();
+        maxNum=teamForm.getMaxNum();
     }
     public Team(@NonNull TeamVo teamVo){
         id=teamVo.getId();
@@ -46,5 +49,6 @@ public class Team {
         }
         captainNotice=teamVo.getCaptainNotice();
         contestId=teamVo.getContest().getId();
+        maxNum=teamVo.getMaxNum();
     }
 }

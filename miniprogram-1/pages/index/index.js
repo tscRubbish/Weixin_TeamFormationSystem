@@ -22,30 +22,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
-     await wx.request({
-        url: config.host+'/api/recommend/getRecommend',
-        data: {},
-        header: {},
-        method: 'GET',
-        success: (result) => {
-            console.log(result.data.content);
-            this.setData({bannerList:result.data.content});
-        },
-        fail: (res) => {},
-        complete: (res) => {},
-      });
-      await wx.request({
-        url: config.host+'/api/contest/getList',
-        data:{
-          "word":"",
-          "page": 1
-        },
-        header:{},
-        method:'GET',
-        success:(result)=>{
-          console.log(result.data);
-          this.setData({contestList:result.data.content});
-        }
+    let that=this
+    request('/api/recommend/getRecommend',{},{},'GET',function (result) {
+      console.log(result.data.content);
+      that.setData({bannerList:result.data.content});
+    });
+    request('/api/contest/getList',{"word":"","page": 1},{},'GET',function (result){
+      console.log(result.data);
+      that.setData({contestList:result.data.content});
+    });
+  },
+  toContest(event){
+      console.log(event);
+      let contest=event.currentTarget.dataset.item;
+      if (contest.id==undefined) contest=event.currentTarget.dataset.item.contestVo;
+      wx.navigateTo({
+        url: '/pages/contest/contest?data='+JSON.stringify(contest.id),
       })
       let result = request('/api/user/login',{username:'nju_se',password:'12345678'},{},'POST',function(result){
         console.log(result);

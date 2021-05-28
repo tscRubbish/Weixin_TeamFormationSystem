@@ -4,15 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.example.weixin.data.ContestMapper;
 import com.example.weixin.data.TeamMapper;
 import com.example.weixin.data.UserMapper;
-import com.example.weixin.po.Contest;
 import com.example.weixin.po.Team;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +26,7 @@ public class TeamVo {
     private ArrayList<UserVo> members;
     private String captainNotice;
     private ContestVo contest;
+    private Integer maxNum;
 
     public TeamVo(){
 
@@ -39,6 +37,7 @@ public class TeamVo {
         name=team.getName();
         description=team.getDescription();
         captain=new UserVo(userMapper.getUserById(team.getCaptainId()));
+        maxNum=team.getMaxNum();
         List<Integer> list=teamMapper.getMembers(team);
         System.out.println(JSON.toJSON(list));
         if (list!=null){
@@ -54,5 +53,7 @@ public class TeamVo {
         name=teamForm.getName();
         captain=new UserVo(userMapper.getUserById(teamForm.getCaptainId()));
         contest=new ContestVo(contestMapper.getContestById(teamForm.getContestId()),userMapper,contestMapper);
+        description=teamForm.getDescription();
+        maxNum=teamForm.getMaxNum();
     }
 }

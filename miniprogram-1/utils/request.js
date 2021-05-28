@@ -14,5 +14,7 @@ export default (url, data = {},header={}, method = 'GET',success) => {
         reject(err)
       }
     })
+  }).catch((error) => {
+    console.error(error);
   })
 }
