@@ -1,4 +1,5 @@
 import config from "../../../../config/config"
+var app = getApp()
 
 Page({
 
@@ -7,7 +8,6 @@ Page({
    */
   data: {
     showImage: false,
-    showName: false,
     showIntro: false,
     id: 0,
     name: null,
@@ -25,49 +25,52 @@ Page({
     this.setData({ showImage: false });
   },
 
-  //编辑用户名
-  showName() {
-    this.setData({ showName: true });
-  },
-
-  onNameChange(e) {
-    this.setData({name:e.detail})
-    console.log(this.data.name)
-  },
-
-  onNameClose() {
-    this.setData({ showName: false });
-  },
-
-  
   //改变介绍
-  onIntroChange() {
-    
+  onIntroChange(e) {
+    this.setData({words:e.detail})
+    console.log(this.data.words)
+  },
+
+  //保存
+  save() {
+    wx.request({
+      url: config.host + "/api/user/getInfo?id=" + this.data.id,
+      header: {
+        "nju-token": app.globalData.token,
+        "nju-long-token": app.globalData.longToken
+      },
+      success: (res) => {
+        wx.request({
+          url: config.host + "/api/user/changeInfo",
+          method: "POST",
+          header: {
+            "nju-token": app.globalData.token,
+            "nju-long-token": app.globalData.longToken
+          },
+          data: {
+            "description": this.data.words,
+            "email": res.data.content.email,
+            "id": this.data.id,
+            "likes":res.data.content.likes,
+            "score":res.data.content.score,
+            "password": res.data.content.password,
+            "pic": this.data.pic,
+            "tags": [
+              "string"
+            ],
+            "userType": "Admin",
+            "username": res.data.content.username
+          },
+          success: (res) => {
+            console.log(res);
+          }
+        })
+      }
+    })
   },
 
   //返回
   onClickLeft() {
-    wx.request({
-      url: config.host + "/api/user/changeInfo",
-      method: "POST",
-      data: {
-        "description": this.data.words,
-        "email": this.data.email,
-        "id": this.data.id,
-        "likes": 0,
-        "password": "string",
-        "pic": this.data.pic,
-        "score": 0,
-        "tags": [
-          "string"
-        ],
-        "userType": "Admin",
-        "username": this.data.name
-      },
-      success: (res) => {
-        console.log(res);
-      }
-    })
     wx.navigateBack({
       delta: 1,
     })
@@ -84,5 +87,6 @@ Page({
       intro: options.intro,
       email: options.email
     })
+
   },
 })

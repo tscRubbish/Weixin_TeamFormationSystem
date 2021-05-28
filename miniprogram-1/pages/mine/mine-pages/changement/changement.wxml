@@ -10,7 +10,12 @@
 
 <van-cell-group>
   <van-cell title="头像" is-link bind:click="showImage" />
-  <van-cell title="用户名" is-link bind:click="showName" />
+  <van-field
+    label="用户名"
+    value="{{ name }}"
+    readonly
+    input-align="right"
+  />
   <van-field
     label="介绍"
     value="{{ intro }}"
@@ -21,26 +26,17 @@
   <van-field
     label="邮箱"
     value="{{ email }}"
-    bind:change="onEmailChange"
+    readonly
     input-align="right"
     title-width="75rpx"
   />
 </van-cell-group>
 
+<van-button type="danger" round block="true" bind:click="save">保存</van-button>
+
 <van-popup show="{{ showImage }}" bind:close="onImageClose">
   <image src="https://img.yzcdn.cn/vant/cat.jpeg"/>
   <van-button round type="primary" block="true">修改头像</van-button>
-</van-popup>
-
-<van-popup show="{{ showName }}" bind:close="onNameClose">
-  <van-cell-group>
-  <van-field
-    value="{{ name }}"
-    label="用户名："
-    bind:change="onNameChange"
-    size="large"
-  />
-</van-cell-group>
 </van-popup>
 
 

@@ -1,5 +1,6 @@
 import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 import config from "../../config/config";
+var app = getApp();
 
 Page({
   data: {
@@ -21,8 +22,6 @@ Page({
       { name: '分享海报', icon: 'poster' },
       { name: '二维码', icon: 'qrcode' },
     ],
-    token: "",
-    longToken: "",
     login: "退出登录",
     email: ""
   },
@@ -45,8 +44,8 @@ Page({
         url: config.host + "/api/user/updateLikes",
         method: "POST",
         header: {
-          "nju-token": this.data.token,
-          "nju-long-token": this.data.longToken
+          "nju-token": app.globalData.token,
+          "nju-long-token": app.globalData.longToken
         },
         data: {
           "description": this.data.words,
@@ -87,8 +86,8 @@ Page({
         url: config.host + "/api/user/updateScores?score=" + this.data.good,
         method: "POST",
         header: {
-          "nju-token": this.data.token,
-          "nju-long-token": this.data.longToken
+          "nju-token": app.globalData.token,
+          "nju-long-token": app.globalData.longToken
         },
         data: {
           "description": this.data.words,
@@ -150,15 +149,11 @@ Page({
     }
     if (this.data.id != 0) {
       console.log("wsy")
-      this.setData({
-        token: wx.getStorageSync("token"),
-        longToken: wx.getStorageSync("longToken")
-      })
       wx.request({
         url: config.host + "/api/user/getInfo?id=" + this.data.id,
         header: {
-          "nju-token": this.data.token,
-          "nju-long-token": this.data.longToken
+          "nju-token": app.globalData.token,
+          "nju-long-token": app.globalData.longToken
         },
         success: (res) => {
           console.log(res);
@@ -181,6 +176,7 @@ Page({
     } else {
       this.setData({login: "退出登录"})
     }
+    wx.clearStorage()
   },
 
   onLoad() {

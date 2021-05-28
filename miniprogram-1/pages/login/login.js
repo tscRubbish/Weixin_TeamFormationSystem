@@ -1,6 +1,8 @@
 // pages/login/login.js
 import request from "../../utils/request"
 import config from "../../config/config"
+import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog'
+var app = getApp()
 
 Page({
   /**
@@ -10,7 +12,7 @@ Page({
     username: '',
     password: '',
     show:false,
-    message:""
+    message:"邮箱或密码错误"
   },
   // 表单项内容发生改变的回调
   handleInput(event) {
@@ -24,23 +26,31 @@ Page({
   async do() {
      wx.request({
         url: config.host + "/api/user/login",
+        method: "POST",
         data: {
           username:this.data.username,
           password:this.data.password,
-          email:''
+          email:this.data.username
         },
-        method: "POST",
         fail: (res) => {
           console.log(res)
         },
         success: (res) => {
           console.log(res.data)
-          wx.setStorageSync('id',res.data.content.userVo.id),
-          wx.setStorageSync('token', res.data.content.njuToke),
-          wx.setStorageSync('longToken', res.data.content.njuLongToken),
-          wx.navigateTo({ 
-            url: '/pages/mine/mine',
-          })
+          if (res.data.message == "邮箱或密码错误") {
+
+            Dialog.alert({title: '提示',
+            message: '用户名或邮箱错误'});
+            
+          } else {
+              wx.setStorageSync('id',res.data.content.userVo.id),
+            app.globalData.token = res.data.content.njuToken;
+            app.globalData.longToken = res.data.content.njuLongToken;
+            wx.navigateTo({ 
+              url: '/pages/mine/mine',
+            })
+          }
+          
         },
       })
   },
@@ -53,9 +63,6 @@ Page({
    wx.navigateTo({
      url: '',
    })
-  },
-  onClose(event){
-    this.setData({show : false});
   },
   /**
    * 生命周期函数--监听页面加载
