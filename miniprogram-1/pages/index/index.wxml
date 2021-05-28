@@ -2,8 +2,8 @@
 <view class="indexContainer">
   <!--轮播图区域-->
   <swiper class="banners" indicator-dots indicator-color="ivory" indicator-active-color="#666699" autoplay easing-function="linear" circular>
-    <swiper-item wx:for="{{bannerList}}" wx:key="Id" >
-      <image src="{{ item }}" class="image" bindtap="toContest"></image>
+    <swiper-item wx:for="{{bannerList}}" wx:key="Id" data-item="{{item}}" bindtap="toContest">
+      <image src="{{ item.pic }}" class="image"></image>
     </swiper-item>
   </swiper>
 </view>

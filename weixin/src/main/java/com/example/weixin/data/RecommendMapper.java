@@ -1,6 +1,7 @@
 package com.example.weixin.data;
 
 import com.example.weixin.po.Contest;
+import com.example.weixin.po.Recommend;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,7 @@ public interface RecommendMapper {
      * 获取推荐比赛海报
      * @return ID
      */
-    List<String> getRecommend();
+    List<Recommend> getRecommend();
     /**
      * 删除指定海报
      * @return ID

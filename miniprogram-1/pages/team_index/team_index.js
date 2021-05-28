@@ -120,7 +120,7 @@ Page({
 
     var that = this;
 
-    await wx.request({
+    wx.request({
       url: 'http://localhost:8081/api/user/getInfo?id=' + that.data.id,
       method: 'GET',
       success(res){
@@ -134,7 +134,7 @@ Page({
     });
 
 
-    await wx.request({
+    wx.request({
       url: 'http://localhost:8081/api/user/login',
       method: 'POST',
       data: {
@@ -148,7 +148,7 @@ Page({
       }
     })
 
-    await wx.request({
+    wx.request({
       url: 'http://localhost:8081/api/team/getTeamList',
       method: 'POST',
       header:{

@@ -10,7 +10,11 @@
         delete from weixin.recommend
         where pic=#{pic};
     </delete>
-    <select id="getRecommend" resultType="java.lang.String">
-        select weixin.recommend.pic  from weixin.recommend
+    <select id="getRecommend" resultMap="Recommend">
+        select contestId,pic  from weixin.recommend
     </select>
+    <resultMap id="Recommend" type="com.example.weixin.po.Recommend">
+        <result column="contestId" property="contestId"></result>
+        <result column="pic" property="pic"></result>
+    </resultMap>
 </mapper>
