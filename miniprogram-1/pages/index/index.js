@@ -28,7 +28,7 @@ Page({
         header: {},
         method: 'GET',
         success: (result) => {
-            console.log(result.data.content);
+            //console.log(result.data.content);
             this.setData({bannerList:result.data.content});
         },
         fail: (res) => {},
@@ -43,14 +43,14 @@ Page({
         header:{},
         method:'GET',
         success:(result)=>{
-          console.log(result.data);
+          //console.log(result.data);
           this.setData({contestList:result.data.content});
         }
       })
-      let result = request('/api/user/login',{username:'nju_se',password:'12345678'},{},'POST',function(result){
-        console.log(result);
-      });
-      console.log(result)
+      // let result = request('/api/user/login',{username:'nju_se',password:'12345678'},{},'POST',function(result){
+      //   console.log(result);
+      // });
+      // console.log(result)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

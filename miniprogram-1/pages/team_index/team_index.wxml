@@ -4,13 +4,13 @@
       <van-cell
       wx:for="{{match_array}}"
       wx:key="id"
-      title="{{item.Tname}}" 
-      value="{{item.Num_now}}/{{item.Num_all}}"
+      title="{{item.name}}" 
+      value="{{item.Num_now}}/4"
       size="large" 
-      label="{{item.match_name}}"
+      label="{{item.contest.name}}"
       is-link
       link-type="navigateTo"
-      url="/pages/Team_details/Team_details?TID={{item.TID}}&Tname={{item.Tname}}&match_name={{item.match_name}}&Timg_path={{item.Timg_path}}&notice={{item.notice}}&memberID_array={{item.memberID_array}}&memberName_array={{item.memberName_array}}&Num_now={{item.Num_now}}"
+      url="/pages/Team_details/Team_details?TID={{item.id}}&Tname={{item.name}}&match_name={{item.contest.name}}&Timg_path={{item.pic}}&notice={{item.captainNotice}}&memberID_array={{item.memberIDList}}&memberName_array={{item.memberNameList}}"
       center
       />
     </van-cell-group>
@@ -29,11 +29,10 @@
     <van-cell title="队伍人数">
       <view slot="">
         <van-stepper
-        value="{{ 1 }}" 
-        bind:change="Num_Change" 
+        model:value="{{ new_MaxNum }}" 
         label="队伍人数"
         min="1" 
-        max="1000"
+        max="30"
         />
       </view>
     </van-cell>
@@ -45,23 +44,30 @@
       </view>
     </van-popup>
     <van-cell-group>
-  
+<!--   
     <van-cell title="队伍头像" center>
       <view slot=""> 
       <van-uploader file-list="{{ fileList }}" bind:after-read="afterRead" />
       </view>
-    </van-cell>
-    <van-field
-    model:value="{{ introduction }}"
+    </van-cell> -->
+    <!-- <van-field
+    model:value="{{ new_introduction }}"
     label="队伍简介"
     type="textarea"
     placeholder=""
     autosize
     maxlength="115"
     show-word-limit="true"
-    />
+    /> -->
+    <van-field
+      model:value="{{ new_Tpassword }}"
+      type="password"
+      label="队伍密码"
+      placeholder="请创建队伍密码"
+      input-align="right"
+      />
   </van-cell-group>
-  <van-button type="default" size="large" icon="plus">发起组队</van-button>
+  <van-button type="default" size="large" icon="plus" bind:click="createTeam">发起组队</van-button>
     
     
     
@@ -70,13 +76,13 @@
   <van-tab title="加入队伍">
     <van-cell-group>
       <van-field
-      model:value="{{ TID }}"
+      model:value="{{ join_TID }}"
       clearable
       label="队伍TID"
       placeholder="请输入队伍TID"
       />
       <van-field
-      value="{{ Tpassword }}"
+      model:value="{{ join_Tpassword }}"
       type="password"
       label="队伍密码"
       placeholder="请输入队伍密码"

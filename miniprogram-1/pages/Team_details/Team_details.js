@@ -11,7 +11,6 @@ Page({
     notice:"",
     memberID_array:[],
     memberName_array:[],
-    Num_now:0
   },
 
 
@@ -27,7 +26,6 @@ Page({
       notice:event.notice,
       memberID_array:event.memberID_array,
       memberName_array:event.memberName_array,
-      Num_now:event.Num_now
     });
     // console.log(event.memberID_array.split(","));
 
@@ -54,9 +52,9 @@ Page({
     })
   },
 
-  click_node(event){
+  changeTeamInfo(event){
     wx.navigateTo({
-      url: '/pages/Competition_node/Competition_node',
+      url: '/pages/changeTeamInfo/changeTeamInfo',
     })
   }
 

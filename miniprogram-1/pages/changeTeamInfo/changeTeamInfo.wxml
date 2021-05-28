@@ -1,0 +1,54 @@
+
+<van-cell-group>
+  <van-field
+  model:value="{{ Tname }}"
+  placeholder="请输入队伍名称"
+  clearable
+  label="队伍名称"
+  input-align="right"
+  />
+  </van-cell-group>
+  <van-cell title="队伍人数">
+    <view slot="">
+      <van-stepper
+      model:value="{{ MaxNum }}" 
+      label="队伍人数"
+      min="1" 
+      max="30"
+      />
+    </view>
+  </van-cell>
+  <van-cell title="选择比赛" value="{{choose_match}}" bind:click="showPopup" center>
+  </van-cell>
+  <van-popup show="{{ show }}" bind:close="onClose" position="bottom" round="true">
+    <view slot="">
+      <van-picker columns="{{ matchs }}" bind:change="match_Change" /> 
+    </view>
+  </van-popup>
+  <van-cell-group>
+
+    <van-field
+  model:value="{{ pic }}"
+  placeholder="请输入url"
+  clearable
+  label="队伍头像url"
+  input-align="right"
+  />
+  <van-field
+  model:value="{{ Tintroduction }}"
+  label="队伍简介"
+  type="textarea"
+  placeholder=""
+  autosize
+  maxlength="115"
+  show-word-limit="true"
+  />
+  <van-field
+    model:value="{{ Tpassword }}"
+    label="队伍密码"
+    placeholder=""
+    input-align="right"
+  />
+</van-cell-group>
+<van-button type="default" size="large" icon="setting-o" bind:click="changeInfo">修改信息</van-button>
+    
