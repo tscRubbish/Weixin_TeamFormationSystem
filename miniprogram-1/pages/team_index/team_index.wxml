@@ -82,7 +82,7 @@
       placeholder="请输入队伍密码"
       />
     </van-cell-group>
-    <van-button type="default" size="large" icon="plus">加入队伍</van-button>
+    <van-button type="default" size="large" icon="plus" bind:click="join_team">加入队伍</van-button>
   </van-tab>
 </van-tabs>
 

@@ -3,7 +3,7 @@ package com.example.weixin.po;
 import com.example.weixin.vo.TeamForm;
 import com.example.weixin.vo.TeamVo;
 import com.example.weixin.vo.UserVo;
-import com.sun.istack.internal.NotNull;
+
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -24,6 +24,7 @@ public class Team {
     private ArrayList<Integer> membersId;
     private String captainNotice;
     private Integer contestId;
+    private Integer maxNum;
     public Team(){
 
     }
@@ -32,8 +33,10 @@ public class Team {
         password=teamForm.getPassword();
         captainId=teamForm.getCaptainId();
         contestId=teamForm.getContestId();
+        description=teamForm.getDescription();
+        maxNum=teamForm.getMaxNum();
     }
-    public Team(@NotNull TeamVo teamVo){
+    public Team(@NonNull TeamVo teamVo){
         id=teamVo.getId();
         pic=teamVo.getPic();
         name=teamVo.getName();
@@ -46,5 +49,6 @@ public class Team {
         }
         captainNotice=teamVo.getCaptainNotice();
         contestId=teamVo.getContest().getId();
+        maxNum=teamVo.getMaxNum();
     }
 }

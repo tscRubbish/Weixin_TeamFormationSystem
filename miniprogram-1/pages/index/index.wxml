@@ -3,7 +3,7 @@
   <!--轮播图区域-->
   <swiper class="banners" indicator-dots indicator-color="ivory" indicator-active-color="#666699" autoplay easing-function="linear" circular>
     <swiper-item wx:for="{{bannerList}}" wx:key="Id" >
-      <image src="{{ item }}" class="image"></image>
+      <image src="{{ item }}" class="image" bindtap="toContest"></image>
     </swiper-item>
   </swiper>
 </view>

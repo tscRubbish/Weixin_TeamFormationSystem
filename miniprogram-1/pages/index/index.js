@@ -15,6 +15,9 @@ Page({
     this.setData({tabber: event.detail})
     wx.redirectTo({url: `/pages/${event.detail}/${event.detail}`})
   },
+  toContest(event){
+
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -38,6 +41,10 @@ Page({
       wx.navigateTo({
         url: '/pages/contest/contest?data='+JSON.stringify(contest.id),
       })
+      let result = request('/api/user/login',{username:'nju_se',password:'12345678'},{},'POST',function(result){
+        console.log(result);
+      });
+      console.log(result)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

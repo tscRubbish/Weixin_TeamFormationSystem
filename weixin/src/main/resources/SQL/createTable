@@ -32,7 +32,10 @@ CREATE TABLE `Team` (
                         `contestId` int(11) NOT NULL ,
                         PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-insert into `Team` VALUES (1,'','5A430','123456','垃圾回收中心',2,'114514',1);
+alter table weixin.team add maxNum int(11) DEFAULT 5;
+alter table weixin.team modify description varchar(600) DEFAULT '';
+
+insert into `Team` VALUES (1,'','5A430','123456','垃圾回收中心',2,'114514',1,4);
 
 DROP TABLE IF EXISTS `Contest`;
 CREATE TABLE `Contest` (
@@ -41,7 +44,7 @@ CREATE TABLE `Contest` (
                         `sponsorId` int(11) NOT NULL,
                         `startTime` DATE NOT NULL ,
                         `endTime` DATE NOT NULL ,
-                        `description` varchar(255) DEFAULT '',
+                        `description` varchar(600) DEFAULT '',
                         `tags` varchar(100) DEFAULT '',
                         PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;

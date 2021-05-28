@@ -53,10 +53,10 @@ public class TeamController {
 
     @ApiOperation("创建队伍")
     @PostMapping("/create")
-    public ResponseVO create(TeamForm teamForm,HttpServletRequest request){
+    public ResponseVO create(@RequestBody TeamForm teamForm,HttpServletRequest request){
         String token = request.getHeader(JwtUtil.TOKEN_NAME);
         Integer userId = JwtUtil.verifyTokenAndGetUserId(token);
-        if (userId==null){
+        if (userId==null||userId!=teamForm.getCaptainId()){
             return ResponseVO.buildFailure("请先登录在创建队伍");
         }
         return teamService.createTeam(teamForm);

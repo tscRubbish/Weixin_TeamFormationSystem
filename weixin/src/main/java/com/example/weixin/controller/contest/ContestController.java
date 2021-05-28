@@ -106,7 +106,7 @@ public class ContestController {
         String token = request.getHeader(JwtUtil.TOKEN_NAME);
         Integer userId=JwtUtil.verifyTokenAndGetUserId(token);
         Integer userType = JwtUtil.verifyTokenAndGetUserType(token);
-        if (userType==null||userType!= UserType.Manager.getValue()||userId!=contestVo.getSponsor().getId()){
+        if (userId==null||userType!= UserType.Manager.getValue()||userId!=contestVo.getSponsor().getId()){
             return ResponseVO.buildFailure("无添加比赛海报图权限");
         }
         return contestService.insertPics(contestVo.getId(),pic);

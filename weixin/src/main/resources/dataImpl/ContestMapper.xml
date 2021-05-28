@@ -44,7 +44,7 @@
     </select>
     <select id="getContestByWord" resultMap="Contest">
         select * from weixin.contest
-        where (description like (concat(concat('%',#{word}),'%'))) or (tags like (concat(concat('%',#{word}),'%')))
+        where (name like (concat(concat('%',#{word}),'%'))) or (tags like (concat(concat('%',#{word}),'%')))
     </select>
     <select id="getPics" resultType="java.lang.String" parameterType="com.example.weixin.po.Contest">
         select pic from weixin.contestpics
